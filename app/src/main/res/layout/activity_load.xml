@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--시작화면 레이아웃-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Load"
+    android:orientation="horizontal"
+    android:layout_gravity="center">
+
+    <!--레이아웃을 여러개 사용하여 가운데 정렬-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <!--메인 로고-->
+        <TextView
+            android:id="@+id/logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IDOL"
+            android:textSize="50sp"
+            android:layout_gravity="center"/>
+
+        <!--서브 타이틀-->
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:text="Ideal Design Of Logisitcs"
+            android:textSize="20sp"/>
+    </LinearLayout>
+
+</LinearLayout>

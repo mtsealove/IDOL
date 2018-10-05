@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="kr.ac.inhagachon.www.idol">
+
+    <!--인터넷, 위치정보 서비스 권한 필요-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyBDMKClo98j5Yw3l6osCJastRCpM1Xm3oc" />
+        <service android:name=".FetchAddressIntentService"
+            android:exported="false" />
+        <activity android:name=".Load">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Login" android:label="login"/>
+        <activity android:name=".Signup" android:label="signup"/>
+        <activity android:name=".Main" android:label="main"/>
+        <activity android:name=".SelectMap" android:label="map_select" android:windowSoftInputMode="stateAlwaysHidden"/>
+    </application>
+
+</manifest>

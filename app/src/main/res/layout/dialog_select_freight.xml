@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="400dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:columnCount="2"
+    app:rowCount="2">
+
+
+    <Button
+        android:id="@+id/small"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:text="소형"
+        android:textSize="30dp"/>
+    <Button
+        android:id="@+id/medium"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:text="중형"
+        android:textSize="30dp"/>
+    <Button
+        android:id="@+id/large"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:text="대형"
+        android:textSize="30dp"/>
+
+    <Button
+        android:id="@+id/extralarge"
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        android:text="초대형"
+        android:textSize="30dp"/>
+
+</android.support.v7.widget.GridLayout>
