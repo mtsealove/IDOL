@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="notice">
+        <item>애플리케션 소개입니다</item>
+        <item>IDoL 1.0 런치</item>
+        <item>I Design on Link</item>
+    </string-array>
+</resources>

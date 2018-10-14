@@ -4,54 +4,84 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/input_location"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="주소"
-            android:textSize="25sp"
-            android:textColor="#ffffff"
-            android:background="#BBBBB9"
-            android:layout_margin="10dp"/>
+            android:layout_height="wrap_content">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_gravity="right">
+            <EditText
+                android:id="@+id/input_location"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:hint="위치 검색"
+                android:textSize="25sp"
+                android:textColor="#000000"
+                android:background="@drawable/searchbar"
+                android:layout_margin="10dp"
+                android:paddingLeft="10dp"
+                android:imeOptions="actionSearch"/>
 
-            <Button
+            <ImageView
                 android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="검색"
-                android:textSize="25sp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"/>
+                android:layout_alignEnd="@+id/input_location"
+                android:layout_centerVertical="true"
+                android:src="@drawable/search" />
+        </RelativeLayout>
 
-            <Button
-                android:id="@+id/select_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="선택"
-                android:textSize="25sp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"/>
-        </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="검색 결과"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"/>
+
+    <RelativeLayout
+        android:id="@+id/result_locations"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:background="@drawable/searchbar"
+        android:layout_margin="10dp">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="170dp">
+            <ListView
+                android:id="@+id/address"
+                android:layout_width="match_parent"
+                android:layout_height="170dp"
+                android:textSize="20sp"
+                android:background="@drawable/list_background"/>
+
+        </ScrollView>
 
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/tmp_result"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/tmp_result"
+            android:textColor="#000000"
+            android:layout_centerInParent="true" />
 
-    <fragment
-        android:id="@+id/map"
+    </RelativeLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        class="com.google.android.gms.maps.MapFragment"/>
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <fragment
+            android:id="@+id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.google.android.gms.maps.MapFragment"/>
+    </LinearLayout>
+
 
 </LinearLayout>

@@ -1,55 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--로그인 또는 비회원 주문 페이지-->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="170dp"
-            android:layout_gravity="center">
+        android:background="@drawable/list_background">
 
-            <!--각각 비회원, 회원 로그인 페이지로 이동-->
-            <Button
-                android:id="@+id/not_register"
-                android:layout_width="150dp"
-                android:layout_height="200dp"
-                android:text="비회원 로그인"
-                android:textSize="20sp"
-                android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:onClick="non_member_login"/>
-
-            <Button
-                android:id="@+id/login"
-                android:layout_width="150dp"
-                android:layout_height="200dp"
-                android:text="회원 로그인"
-                android:textSize="20sp"
-                android:layout_gravity="center"
-                android:layout_margin="15dp"
-                android:onClick="Show_login_Dialog"/>
-        </LinearLayout>
-
-        <!--회원가입 텍스트, 누르면 회원가입 페이지로 이동-->
         <TextView
-            android:id="@+id/join"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="회원가입"
-            android:layout_gravity="center"
-            android:layout_marginTop="170dp"
-            android:textSize="30sp"/>
-
+            android:text="로그인"
+            android:textSize="25sp"
+            android:textColor="#000000"
+            android:layout_marginTop="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="20dp"/>
     </LinearLayout>
 
+
+    <EditText
+        android:id="@+id/input_ID"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/list_background"
+        android:hint="아이디"
+        android:paddingLeft="20dp"
+        android:textColorHint="#000000"
+        android:inputType="text"
+        android:textSize="25sp" />
+
+    <EditText
+        android:id="@+id/input_password"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/list_background"
+        android:hint="비밀번호"
+        android:paddingLeft="20dp"
+        android:textColorHint="#000000"
+        android:inputType="textPassword"
+        android:textSize="25sp" />
+
+    <CheckBox
+        android:id="@+id/keep_login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그인 유지"
+        android:textSize="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="로그인"
+        android:textSize="25sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="20dp"
+        android:background="#BDBDBD" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:text="회원가입"
+        android:textSize="25sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginHorizontal="25dp"
+        android:layout_marginTop="40dp"
+        android:background="#BDBDBD" />
 
 </LinearLayout>

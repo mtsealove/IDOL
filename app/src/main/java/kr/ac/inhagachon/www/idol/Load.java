@@ -10,6 +10,7 @@ import android.location.LocationManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
@@ -38,6 +39,9 @@ public class Load extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
+        TextView logo=(TextView)findViewById(R.id.logo);
+        logo.setText("IDoL");
+
 
         //계졍 파일 접근 및 인스턴스 생성
 
@@ -45,7 +49,7 @@ public class Load extends AppCompatActivity {
 
         try {
             BufferedReader br=new BufferedReader(new FileReader(Account_File));
-            String ID="", name="", passwd="", birth="";
+            String ID="", name="", passwd="", birth="", phone_number="";
             String tmp="";
             int i=0;
             while((tmp=br.readLine())!=null) { //파일을 읽어가며 인스턴스화, 내용이 없으면 중지
@@ -53,10 +57,12 @@ public class Load extends AppCompatActivity {
                 tmp=br.readLine();
                 birth=tmp;
                 tmp=br.readLine();
+                phone_number=tmp;
+                tmp=br.readLine();
                 ID=tmp;
                 tmp=br.readLine();
                 passwd=tmp;
-                accounts[i]=new Account(name, birth, ID, passwd);
+                accounts[i]=new Account(name, birth,Integer.parseInt(phone_number), ID, passwd);
                 i++;
                 }
               Account.count=i;
@@ -71,7 +77,10 @@ public class Load extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        accounts[non_member_index]=new Account("비회원", "000000", "non_member", "pw");
+        //비회원 인스턴스 생성
+        accounts[non_member_index]=new Account("비회원", "000000", 0,"non_member", "pw");
+
+
 
         //로그인 유지 저장사항에 대해 판단
 
@@ -86,22 +95,22 @@ public class Load extends AppCompatActivity {
                     if(accounts[i].ID.equals(current_ID)) Account.current_index=i;
                 }
                 //저장된 ID로 로그인
-                Intent main_page=new Intent(Load.this, Main.class);
-                startActivity(main_page);
-                //메인 페이지로 이동
-                finish();
+                move_main();
             }
             else { //로그인 유지가 되어있지 않을 경우 로그인 화면으로 이동
-                move_login();
+                Account.current_index=100;
+                move_main();
             }
             br.close();
 
         } catch (FileNotFoundException e) {
             try { //파일이 없을 경우 생성
                 logined.createNewFile();
-                move_login();
+                Account.current_index=100;
+                move_main();
             } catch (IOException e1) {
-                move_login();
+                Account.current_index=100;
+                move_main();
                 e1.printStackTrace();
             }
             e.printStackTrace();
@@ -113,8 +122,10 @@ public class Load extends AppCompatActivity {
 
     }
 
-    void move_login() { //로그인 페이지 이동 메서드
-        Intent login_page=new Intent(Load.this, Login.class);
-        startActivity(login_page);
+    public void move_main() {
+        Intent main_page=new Intent(Load.this, Main.class);
+        startActivity(main_page);
+        finish();
     }
+
 }

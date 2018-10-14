@@ -1,6 +1,8 @@
 package kr.ac.inhagachon.www.idol;
 
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -51,6 +53,7 @@ public class Signup extends AppCompatActivity {
                                 input_ID.setEnabled(false);
                                 input_ID.setFocusable(false);
                                 input_ID.setClickable(false);
+                                input_ID.setTextColor(Color.GRAY);
                                 did_overlap_check = true; //중복검사 실시 확인
                                 dialog.cancel();
                             }
@@ -74,18 +77,22 @@ public class Signup extends AppCompatActivity {
         EditText input_password=(EditText)findViewById(R.id.input_passwd);
         EditText input_check_password=(EditText)findViewById(R.id.check_passwd);
         EditText input_birth=(EditText)findViewById(R.id.input_birth);
+        EditText input_phone=(EditText)findViewById(R.id.input_phone_number);
         //문자열로 변환
         final String ID=input_ID.getText().toString();
         final String name=input_name.getText().toString();
         final String password=input_password.getText().toString();
         String check_password=input_check_password.getText().toString();
         final String birth=input_birth.getText().toString();
+        final String phone_number=input_phone.getText().toString();
 
         //입력 조건 확인
         if(!did_overlap_check) Toast.makeText(Signup.this, "ID 중복확인 버튼을 눌러주세요", Toast.LENGTH_SHORT).show();
         else if(name.length()==0) Toast.makeText(Signup.this, "이름을 입력하세요", Toast.LENGTH_SHORT).show();
         else if(birth.length()==0) Toast.makeText(Signup.this,"생년월일을 입력하세요", Toast.LENGTH_SHORT).show();
         else if(name.length()<2||name.length()>20) Toast.makeText(Signup.this, "이름은 2자에서 20자 이내여야 합니다", Toast.LENGTH_SHORT).show();
+        else if(phone_number.length()==0) Toast.makeText(this, "전화번호를 입력하세요", Toast.LENGTH_SHORT).show();
+        else if(phone_number.length()<10||phone_number.length()>20) Toast.makeText(this, "전화번호는 10자 이상 20자 이내여야 합니다", Toast.LENGTH_SHORT).show();
         else if(password.length()==0) Toast.makeText(Signup.this, "비밀번호를 입력하세요", Toast.LENGTH_SHORT).show();
         else if(password.length()<8||password.length()>20) Toast.makeText(Signup.this, "비밀번호는 8자 이상 20자 미만이여야 합니다", Toast.LENGTH_SHORT).show();
         else if(!password.equals(check_password)) Toast.makeText(Signup.this,"비밀번호가 일치하지 않습니다", Toast.LENGTH_SHORT).show();
@@ -93,7 +100,7 @@ public class Signup extends AppCompatActivity {
             AlertDialog.Builder builder=new AlertDialog.Builder(Signup.this);
             builder.setTitle("가입 확인")
                     .setCancelable(false)
-                    .setMessage("이름: "+name+"\n생년월일: "+birth+"\nID: "+ID+"\n가입하시겠습니까?")
+                    .setMessage("이름: "+name+"\n생년월일: "+birth+"\n전화번호: "+phone_number+"\nID: "+ID+"\n가입하시겠습니까?")
                     .setPositiveButton("확인",new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -103,6 +110,8 @@ public class Signup extends AppCompatActivity {
                                 bw.write(name);
                                 bw.newLine();
                                 bw.write(birth);
+                                bw.newLine();
+                                bw.write(phone_number);
                                 bw.newLine();
                                 bw.write(ID);
                                 bw.newLine();
@@ -123,8 +132,10 @@ public class Signup extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             //인스턴스 생성
-                            Load.accounts[Account.count++]=new Account(name, birth, ID, password);
+                            Load.accounts[Account.count++]=new Account(name, birth,Integer.parseInt(phone_number), ID, password);
                             dialog.cancel();
+                            Intent login=new Intent(Signup.this, Login.class);
+                            startActivity(login);
                             finish();
                         }
                     })
@@ -138,6 +149,13 @@ public class Signup extends AppCompatActivity {
             AlertDialog dialog=builder.create();
             dialog.show();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent=new Intent(Signup.this, Login.class);
+        startActivity(intent);
+        finish();
     }
 
 }

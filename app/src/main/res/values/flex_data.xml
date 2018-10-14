@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--flex 이름-->
+    <string-array name="flex_name">
+        <item>서울 시청</item>
+        <item>서울역</item>
+        <item>부산역</item>
+        <item>해운대역</item>
+    </string-array>
+    <!--flex 위도-->
+    <string-array name="flex_lat">
+        <item>37.566542</item>
+        <item>37.553734</item>
+        <item>35.115389</item>
+        <item>35.164520</item>
+    </string-array>
+    <!--flex 경도-->
+    <string-array name="flex_lon">
+        <item>126.977963</item>
+        <item>126.969609</item>
+        <item>129.042302</item>
+        <item>129.158479</item>
+    </string-array>
+
+    <!--근처로 표시될 장소-->
+    <string-array name="nearby">
+        <item>서울</item>
+        <item>서울</item>
+        <item>부산</item>
+        <item>해운대</item>
+    </string-array>
+
+    <string-array name="nearby2">
+
+    </string-array>
+</resources>

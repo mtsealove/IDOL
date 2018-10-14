@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/list_background"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="업체 이름"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="20dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="가격"
+            android:layout_gravity="center"
+            android:textSize="17sp"
+            android:textColor="#FF0000"
+            android:layout_marginVertical="1dp" />
+
+        <TextView
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/price"
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="시간"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:textSize="17sp"
+            android:textColor="#000000" />
+    </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>

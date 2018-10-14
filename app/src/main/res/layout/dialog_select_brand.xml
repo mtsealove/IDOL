@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#FFFFFF">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        >
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/trasportation" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:text="업체 선택"
+            android:textColor="#000000"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+    <TabHost
+        android:id="@+id/tabHost1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="20dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- TabWidget의 id값이 반드시 "tabs"로 지정되어야 함. -->
+            <TabWidget
+                android:id="@android:id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <!-- FrameLayout의 id값이 반드시 "tabcontent"로 지정되어야 함. -->
+            <FrameLayout
+                android:id="@android:id/tabcontent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <!-- 추천 순 -->
+                <LinearLayout
+                    android:id="@+id/suggest"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/etbackground">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="500dp">
+
+                            <LinearLayout
+                                android:id="@+id/sugget_list"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:layout_marginHorizontal="10dp">
+
+                            </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!-- 최단 거리 -->
+                <LinearLayout
+                    android:id="@+id/short_way"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/etbackground">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="500dp">
+
+                        <LinearLayout
+                            android:id="@+id/short_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginHorizontal="10dp">
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <!--최소 비용-->
+                <LinearLayout
+                    android:id="@+id/low_benefit"
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp"
+                    android:orientation="vertical"
+                    android:background="@drawable/etbackground">
+
+                    <ScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="500dp">
+
+                        <LinearLayout
+                            android:id="@+id/low_list"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:layout_marginHorizontal="10dp">
+
+                        </LinearLayout>
+                    </ScrollView>
+
+
+                </LinearLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </TabHost>
+
+
+
+</LinearLayout>

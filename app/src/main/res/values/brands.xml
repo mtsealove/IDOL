@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="brand_name">
+        <item>A 업체</item>
+        <item>B 업체</item>
+        <item>C 업체</item>
+        <item>D 업체</item>
+        <item>E 업체</item>
+        <item>F 업체</item>
+        <item>G 업체</item>
+        <item>H 업체</item>
+        <item>I 업체</item>
+        <item>J 업체</item>
+    </string-array>
+
+    <string-array name="brand_km">
+        <item>70</item>
+        <item>61</item>
+        <item>78</item>
+        <item>61</item>
+        <item>74</item>
+        <item>76</item>
+        <item>67</item>
+        <item>65</item>
+        <item>69</item>
+        <item>62</item>
+    </string-array>
+    
+    <string-array name="custic_rain">
+        <item>99</item>
+        <item>89</item>
+        <item>98</item>
+        <item>110</item>
+        <item>105</item>
+        <item>110</item>
+        <item>97</item>
+        <item>97</item>
+        <item>104</item>
+        <item>100</item>
+    </string-array>
+</resources>

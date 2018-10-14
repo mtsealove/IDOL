@@ -10,17 +10,16 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBDMKClo98j5Yw3l6osCJastRCpM1Xm3oc" />
-        <service android:name=".FetchAddressIntentService"
-            android:exported="false" />
+
         <activity android:name=".Load">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,10 +27,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Login" android:label="login"/>
-        <activity android:name=".Signup" android:label="signup"/>
-        <activity android:name=".Main" android:label="main"/>
-        <activity android:name=".SelectMap" android:label="map_select" android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".Signup" android:label="signup" android:screenOrientation="portrait"/>
+        <activity android:name=".Main" android:label="main" android:screenOrientation="portrait" />
+        <activity android:name=".SelectMap" android:label="map_select" android:windowSoftInputMode="stateAlwaysHidden" android:screenOrientation="portrait"/>
+        <activity android:name=".Login" android:label="login" android:screenOrientation="portrait"/>
+        <activity android:name=".Notice_board"/>
+        <activity android:name=".Faq"/>
+        <activity android:name=".Show_bill"/>
+        <activity android:name=".LowBenefit" android:screenOrientation="portrait"/>
+        <activity android:name=".Select_brand"/>
     </application>
 
 </manifest>

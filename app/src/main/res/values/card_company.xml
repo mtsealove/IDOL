@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cardcom">
+        <item>한국 카드</item>
+        <item>대한 카드</item>
+        <item>민국 카드</item>
+        <item>가천 카드</item>
+        <item>인하 카드</item>
+    </string-array>
+</resources>
