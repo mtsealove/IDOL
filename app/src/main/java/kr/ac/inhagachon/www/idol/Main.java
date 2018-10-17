@@ -1,6 +1,5 @@
 package kr.ac.inhagachon.www.idol;
 
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -11,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,6 +28,8 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class Main extends AppCompatActivity {
@@ -39,7 +41,7 @@ public class Main extends AppCompatActivity {
     static double distance;
 
     //정보
-    static String message;
+    static String message="";
     static int size, weight;
     static boolean is_setSize=false;
     static int final_bill;
@@ -49,25 +51,33 @@ public class Main extends AppCompatActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_main);
         //사용자 이름 설정
-        TextView username=(TextView)findViewById(R.id.user_name);
-        if(!Load.accounts[Account.current_index].name.equals("비회원"))
-            username.setText("사용자: "+Load.accounts[Account.current_index].name);
+        TextView username= findViewById(R.id.user_name);
+        if(!Load.accounts[Account.current_index].name.equals("비회원")) {
+            username.setText("사용자: " + Load.accounts[Account.current_index].name);
+            username.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent=new Intent(Main.this, View_log.class);
+                    startActivity(intent);
+                }
+            });
+        }
         else { //비회원일 경우 로그인 화면 출력
             username.setText("로그인 하세요");
         }
 
         //drawerLayout 슬라이드 설정
-        ImageView drawerBTN=(ImageView) findViewById(R.id.slide_menu);
+        ImageView drawerBTN= findViewById(R.id.slide_menu);
         drawerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DrawerLayout drawerLayout=(DrawerLayout)findViewById(R.id.main_layout);
+                DrawerLayout drawerLayout= findViewById(R.id.main_layout);
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
 
         //회원가입 페이지 이동 버튼
-        ImageView registerBTN=(ImageView)findViewById(R.id.register);
+        ImageView registerBTN= findViewById(R.id.register);
         registerBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,9 +90,9 @@ public class Main extends AppCompatActivity {
                 else { //회원일 경우 회원 정보 및 로그아웃 버튼 생성
                     LayoutInflater inflater=getLayoutInflater();
                     View account_info=inflater.inflate(R.layout.dialog_account_info, null);
-                    TextView username=(TextView)account_info.findViewById(R.id.user_name);
-                    TextView ID=(TextView)account_info.findViewById(R.id.id);
-                    TextView phone=(TextView)account_info.findViewById(R.id.telephone);
+                    TextView username= account_info.findViewById(R.id.user_name);
+                    TextView ID= account_info.findViewById(R.id.id);
+                    TextView phone= account_info.findViewById(R.id.telephone);
                     username.setText("이름: "+Load.accounts[Account.current_index].name);
                     ID.setText("ID: "+Load.accounts[Account.current_index].ID);
                     phone.setText("전화번호: 0"+Load.accounts[Account.current_index].phone_number);
@@ -96,7 +106,7 @@ public class Main extends AppCompatActivity {
             }
         });
 
-        TextView SLocation=(TextView)findViewById(R.id.start_location);
+        TextView SLocation= findViewById(R.id.start_location);
         SLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +114,7 @@ public class Main extends AppCompatActivity {
             }
         });
 
-        LinearLayout egg=(LinearLayout)findViewById(R.id.egg);
+        LinearLayout egg= findViewById(R.id.egg);
         egg.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -152,12 +162,12 @@ public class Main extends AppCompatActivity {
             switch (requestCode) {
                 case 900:
                     start_address=data.getStringExtra("address");
-                    TextView startloctcation=(TextView)findViewById(R.id.start_location);
+                    TextView startloctcation= findViewById(R.id.start_location);
                     startloctcation.setText(start_address);
                     break;
                 case 1000:
                     destination_address=data.getStringExtra("address2");
-                    TextView destination=(TextView)findViewById(R.id.destination_location);
+                    TextView destination= findViewById(R.id.destination_location);
                     destination.setText(destination_address);
                     break;
             }
@@ -165,7 +175,7 @@ public class Main extends AppCompatActivity {
     }
 
     public void set_round_trip(View v) { //편도/왕복 설정 메서드
-        final TextView label=(TextView)findViewById(R.id.setreturn);
+        final TextView label= findViewById(R.id.setreturn);
         String[] list={"편도", "왕복"};
         ListView listView=new ListView(this);
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(Main.this, R.layout.layout, list);
@@ -188,11 +198,50 @@ public class Main extends AppCompatActivity {
     }
 
     public void set_transportation(View v) { //운송 방법 선택 메서드
-        String sloc = ((TextView) findViewById(R.id.start_location)).getText().toString();
-        String dloc = ((TextView) findViewById(R.id.destination_location)).getText().toString();
-        if (sloc.equals("출발지 검색") || dloc.equals("도착지 검색")) {//출발/도착지를 선택하지 않으면 선택 불가
+        String sloc = ((TextView) findViewById(R.id.start_location)).getText().toString(); //출발주소
+        String dloc = ((TextView) findViewById(R.id.destination_location)).getText().toString(); //도착주소
+        String s1, s2, total1, total2;
+
+        boolean exist_load=false;
+        //주소에 포함된 지명 검색
+        if(sloc.contains("서울")) s1="서울";
+        else if (sloc.contains("대구")) s1="대구";
+        else if(sloc.contains("광주")) s1="광주";
+        else if(sloc.contains("대전")) s1="대전";
+        else if(sloc.contains("강릉")) s1="강릉";
+        else if(sloc.contains("천안")) s1="천안";
+        else if(sloc.contains("광주")) s1="광주";
+        else if(sloc.contains("부산")) s1="부산";
+        else if(sloc.contains("경기")) s1="수원";
+        else if(sloc.contains("인천")) s1="인천";
+        else s1="";
+        if(dloc.contains("서울")) s2="서울";
+        else if (dloc.contains("대구")) s2="대구";
+        else if(dloc.contains("광주")) s2="광주";
+        else if(dloc.contains("대전")) s2="대전";
+        else if(dloc.contains("강릉")) s2="강릉";
+        else if(dloc.contains("천안")) s2="천안";
+        else if(dloc.contains("광주")) s2="광주";
+        else if(dloc.contains("부산")) s2="부산";
+        else if(dloc.contains("경기")) s2="수원";
+        else if(dloc.contains("인천")) s2="인천";
+        else s2="";
+        total1=s1+"-"+s2;
+        total2=s2+"-"+s1;
+        int logic_length=0;
+        for(int i=0; i<Load.logics.length; i++) { //지원 가능한 경로인지 판단
+            if(Load.logics[i].location.equals(total1)||Load.logics[i].location.equals(total2)) {
+                exist_load=true;
+                logic_length++;
+                Log.d("path", "path:"+Load.logics[i].location);
+            }
+        }
+        //출발-도착 위치를 생성
+
+            //출발/도착지를 선택하지 않으면 선택 불가
+        if (sloc.equals("출발지 검색") || dloc.equals("도착지 검색")) {
             Toast.makeText(getApplicationContext(), "출발지와 도착지를 선택하세요", Toast.LENGTH_SHORT).show();
-            LinearLayout layout=(LinearLayout)findViewById(R.id.set_st_ed);
+            LinearLayout layout= findViewById(R.id.set_st_ed);
             layout.setFocusableInTouchMode(true);
             layout.requestFocus();
             } //화물 종류를 선택하지 않으면 실행 불가
@@ -203,27 +252,64 @@ public class Main extends AppCompatActivity {
             View layout=inflater.inflate(R.layout.dialog_set_transportation_method, null);
             AlertDialog.Builder builder=new AlertDialog.Builder(Main.this);
             builder.setView(layout);
-            AlertDialog dialog=builder.create();
-            Button low_benefit=(Button)layout.findViewById(R.id.low_benefit);
-            Button short_way=(Button)layout.findViewById(R.id.short_way);
-            Button self_select=(Button)layout.findViewById(R.id.select_my_self);
+            final AlertDialog dialog=builder.create();
+            Button suggets_way= layout.findViewById(R.id.suggest_way);
+            Button low_benefit= layout.findViewById(R.id.low_benefit_btn);
+            Button short_way= layout.findViewById(R.id.short_way);
+            Button self_select= layout.findViewById(R.id.select_my_self);
+            final String finalTotal1 = total1;
+            final String finalTotal2 = total2;
+            final int finalLogic_length = logic_length;
+            final Intent show_way=new Intent(Main.this, Show_way.class);
+            TextView s= findViewById(R.id.start_location);
+            TextView d= findViewById(R.id.destination_location);
+            show_way.putExtra("saddress", s.getText().toString());
+            show_way.putExtra("daddress", d.getText().toString());
+            show_way.putExtra("location1", finalTotal1);
+            show_way.putExtra("location2", finalTotal2);
+            show_way.putExtra("count", finalLogic_length);
+            suggets_way.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    show_way.putExtra("title", "추천경로");
+                    startActivity(show_way);
+                    dialog.cancel();
+                }
+            });
             low_benefit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TextView s=(TextView)findViewById(R.id.start_location);
-                    TextView d=(TextView)findViewById(R.id.destination_location);
-                    Intent move_low_benefit=new Intent(Main.this, LowBenefit.class);
-                    move_low_benefit.putExtra("saddress", s.getText().toString());
-                    move_low_benefit.putExtra("daddress", d.getText().toString());
-                    startActivity(move_low_benefit);
+                    show_way.putExtra("title", "최소비용");
+                    startActivity(show_way);
+                    dialog.cancel();
+                }
+            });
+            short_way.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    show_way.putExtra("title", "최단시간");
+                    startActivity(show_way);
+                    dialog.cancel();
                 }
             });
             self_select.setOnClickListener(new View.OnClickListener() { //직접 선택 메서드
                 @Override
                 public void onClick(View v) {
                     self_set_trasportation();
+                    dialog.cancel();
                 }
             });
+            if(!exist_load) { //추천경로가 존재하지 않는다면 선택 불가
+                View.OnClickListener notable=new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Toast.makeText(getApplicationContext(), "지원되지 않는 경로입니다", Toast.LENGTH_SHORT).show();
+                    }
+                };
+                low_benefit.setOnClickListener(notable);
+                short_way.setOnClickListener(notable);
+                suggets_way.setOnClickListener(notable);
+            }
             dialog.show();
         }
     }
@@ -240,18 +326,17 @@ public class Main extends AppCompatActivity {
         dist = dist * 60 * 1.1515;
         dist = dist * 1.609344;// 단위 mile 에서 km 변환
         distance=dist;
-        if(dist>100) return true;
-        else return false;
+        return dist > 100;
     }
 
     // 주어진 도(degree) 값을 라디언으로 변환
     private double deg2rad(double deg){
-        return (double)(deg * Math.PI / (double)180d);
+        return deg * Math.PI / 180d;
     }
 
     // 주어진 라디언(radian) 값을 도(degree) 값으로 변환
     private double rad2deg(double rad){
-        return (double)(rad * (double)180d / Math.PI);
+        return rad * 180d / Math.PI;
     }
 
     public void self_set_trasportation() { //거리를 계산하여 각 거리에 맞는 운송수단 표시, 직접 선택
@@ -272,13 +357,13 @@ public class Main extends AppCompatActivity {
             final AlertDialog dialog=builder.create();
             dialog.show();
 
-            final TextView transportation=(TextView)findViewById(R.id.transporation);
+            final TextView transportation= findViewById(R.id.transporation);
             //버튼 생성
-            LinearLayout bus=(LinearLayout)layout.findViewById(R.id.bus);
-            LinearLayout ship=(LinearLayout)layout.findViewById(R.id.ship);
-            LinearLayout ktx=(LinearLayout)layout.findViewById(R.id.ktx);
-            LinearLayout quick=(LinearLayout)layout.findViewById(R.id.quick);
-            LinearLayout subway=(LinearLayout)layout.findViewById(R.id.subway);
+            LinearLayout bus= layout.findViewById(R.id.bus);
+            LinearLayout ship= layout.findViewById(R.id.ship);
+            LinearLayout ktx= layout.findViewById(R.id.ktx);
+            LinearLayout quick= layout.findViewById(R.id.quick);
+            LinearLayout subway= layout.findViewById(R.id.subway);
 
             bus.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -327,16 +412,15 @@ public class Main extends AppCompatActivity {
             final AlertDialog dialog=builder.create();
             dialog.show();
 
-            final TextView transportation=(TextView)findViewById(R.id.transporation);
-            LinearLayout quick=(LinearLayout)layout.findViewById(R.id.quick);
-            LinearLayout subway=(LinearLayout)layout.findViewById(R.id.subway);
+            final TextView transportation= findViewById(R.id.transporation);
+            LinearLayout quick= layout.findViewById(R.id.quick);
+            LinearLayout subway= layout.findViewById(R.id.subway);
             quick.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent select_brand=new Intent(Main.this, Select_brand.class);
                     startActivity(select_brand);
                     transportation.setText("차량종류: 퀵");
-                    show_price();//화면에 결제 금액 출력
                     dialog.cancel();
                 }
             });
@@ -349,43 +433,7 @@ public class Main extends AppCompatActivity {
             });
     }
 
-    protected void show_price() { //결제 금액을 화면에 출력시키는 메소드
-        //String-array에서 값 읽어오기
-        Resources res=getResources();
-        String[] Ssizes=res.getStringArray(R.array.size);
-        String[] Sweights=res.getStringArray(R.array.weight);
-        String[] Slong_bills=res.getStringArray(R.array.bill_long);
-        String[] Sshort_bills=res.getStringArray(R.array.bill_short);
-        String result="";
 
-        //int값으로 변환
-        int[] sizes=new int[Ssizes.length];
-        int[] weights=new int[Sweights.length];
-        for(int i=0; i<Ssizes.length; i++) {
-            sizes[i]=Integer.parseInt(Ssizes[i]);
-            weights[i]=Integer.parseInt(Sweights[i]);
-        }
-        int index=sizes.length-1;
-        for(int i=0; i<sizes.length; i++) { //크기와 무게를 비교
-            if(size<sizes[i]&&weight<weights[i]) {
-                index=i;
-                break;
-            }
-        }
-        //장거리 단거리를 파악해 금액 설정
-        if(isLongDistance(slatitude, slongitude, dlatitude, dlongitude)) {
-            result=Slong_bills[index];
-        }
-        else {
-            result=Sshort_bills[index];
-        }
-        final_bill=Integer.parseInt(result); //메모리에 값 저장
-        //textview형태로 화면에 출력
-        TextView billT=(TextView)findViewById(R.id.final_bill);
-        billT.setText("결제 금액: "+result+"원");
-        RelativeLayout layout=(RelativeLayout)findViewById(R.id.final_bill_layout);
-        layout.setVisibility(View.VISIBLE);
-    }
 
     public void set_purchase_method(View v){ //결제수단 설정 메소드
         //dialog 출력
@@ -397,10 +445,10 @@ public class Main extends AppCompatActivity {
         dialog0.show();
 
         //버튼 생성
-        LinearLayout card=(LinearLayout)layout.findViewById(R.id.mobile_card);
-        LinearLayout depositless=(LinearLayout)layout.findViewById(R.id.depositless);
-        LinearLayout virtual_account=(LinearLayout)layout.findViewById(R.id.virtual_account);
-        final TextView purchase_method=(TextView)findViewById(R.id.purchase_method);
+        LinearLayout card= layout.findViewById(R.id.mobile_card);
+        LinearLayout depositless= layout.findViewById(R.id.depositless);
+        LinearLayout virtual_account= layout.findViewById(R.id.virtual_account);
+        final TextView purchase_method= findViewById(R.id.purchase_method);
 
         //카드 결제
         card.setOnClickListener(new View.OnClickListener() {
@@ -414,11 +462,11 @@ public class Main extends AppCompatActivity {
                 final AlertDialog dialog1=builder.create();
                 dialog1.show();
 
-                Button purchase=(Button)layout.findViewById(R.id.purchase);
+                Button purchase= layout.findViewById(R.id.purchase);
                 purchase.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        EditText card_num=(EditText)layout.findViewById(R.id.card_num);
+                        EditText card_num= layout.findViewById(R.id.card_num);
                         if(card_num.getText().toString().length()!=16) Toast.makeText(getApplicationContext(), "카드번호를 제대로 입력하세요", Toast.LENGTH_SHORT).show();
                         else {
                             Toast.makeText(getApplicationContext(), "결제수단이 등록되었습니다", Toast.LENGTH_SHORT).show();
@@ -509,9 +557,9 @@ public class Main extends AppCompatActivity {
         builder.setView(layout);
         final AlertDialog dialog=builder.create();
 
-        Button cancel=(Button)layout.findViewById(R.id.cancel);
-        Button input=(Button)layout.findViewById(R.id.input);
-        final EditText msget=(EditText)layout.findViewById(R.id.message);
+        Button cancel= layout.findViewById(R.id.cancel);
+        Button input= layout.findViewById(R.id.input);
+        final EditText msget= layout.findViewById(R.id.message);
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -523,7 +571,7 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 message=msget.getText().toString();
-                TextView fm=(TextView)findViewById(R.id.final_message);
+                TextView fm= findViewById(R.id.final_message);
                 fm.setText(message);
                 fm.setVisibility(View.VISIBLE);
                 if(message.length()==0) fm.setText(View.GONE);
@@ -542,7 +590,7 @@ public class Main extends AppCompatActivity {
         final AlertDialog dialog=builder.create();
         dialog.show();
 
-        final EditText etsize=(EditText)layout.findViewById(R.id.size);
+        final EditText etsize= layout.findViewById(R.id.size);
         etsize.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -550,7 +598,7 @@ public class Main extends AppCompatActivity {
                 return false;
             }
         });
-        final EditText etweight=(EditText)layout.findViewById(R.id.weight);
+        final EditText etweight= layout.findViewById(R.id.weight);
         etweight.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -558,7 +606,7 @@ public class Main extends AppCompatActivity {
                 return false;
             }
         });
-        Button confirm=(Button)layout.findViewById(R.id.confirm);
+        Button confirm= layout.findViewById(R.id.confirm);
 
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -571,9 +619,8 @@ public class Main extends AppCompatActivity {
                     size = Integer.parseInt(etsize.getText().toString());
                     weight = Integer.parseInt(etweight.getText().toString());
                     is_setSize=true;
-                    TextView slocation=(TextView)findViewById(R.id.start_location);
-                    TextView dlocation=(TextView)findViewById(R.id.destination_location);
-                    if((!slocation.getText().toString().equals("출발지 검색"))&&!dlocation.getText().toString().equals("도착지 검색")) show_price();
+                    TextView slocation= findViewById(R.id.start_location);
+                    TextView dlocation= findViewById(R.id.destination_location);
                     dialog.cancel();
                 }
             }
@@ -587,15 +634,15 @@ public class Main extends AppCompatActivity {
     }
 
     public void request(View v) { //모든 입력사항을 입력했는지 확인후 결제
-        TextView sl=(TextView)findViewById(R.id.start_location);
-        TextView dl=(TextView)findViewById(R.id.destination_location);
-        EditText name1=(EditText)findViewById(R.id.sendname);
-        EditText phone1=(EditText)findViewById(R.id.sendphone);
-        EditText name2=(EditText)findViewById(R.id.receivename);
-        EditText phone2=(EditText)findViewById(R.id.recievephone);
-        TextView setturn=(TextView)findViewById(R.id.setreturn);
-        TextView transporation=(TextView)findViewById(R.id.transporation);
-        TextView purchase=(TextView)findViewById(R.id.purchase_method);
+        TextView sl= findViewById(R.id.start_location);
+        TextView dl= findViewById(R.id.destination_location);
+        EditText name1= findViewById(R.id.sendname);
+        EditText phone1= findViewById(R.id.sendphone);
+        EditText name2= findViewById(R.id.receivename);
+        EditText phone2= findViewById(R.id.recievephone);
+        TextView setturn= findViewById(R.id.setreturn);
+        TextView transporation= findViewById(R.id.transporation);
+        TextView purchase= findViewById(R.id.purchase_method);
         if(sl.getText().toString().equals("출발지 검색")) Toast.makeText(getApplicationContext(), "출발지를 선택하세요", Toast.LENGTH_SHORT).show();
         else if(dl.getText().toString().equals("도착지 검색")) Toast.makeText(getApplicationContext(), "도착지를 선택하세요", Toast.LENGTH_SHORT).show();
         else if(name1.getText().toString().length()==0) Toast.makeText(getApplicationContext(), "보낼 사람의 이름을 입력하세요", Toast.LENGTH_SHORT).show();
@@ -604,9 +651,70 @@ public class Main extends AppCompatActivity {
         else if(phone2.getText().toString().length()==0) Toast.makeText(getApplicationContext(), "보낼 사람의 전화번호를 입력하세요", Toast.LENGTH_SHORT).show();
         else if(!is_setSize) Toast.makeText(getApplicationContext(), "화물의 종류를 선택하세요", Toast.LENGTH_SHORT).show();
         else if(setturn.getText().toString().equals("편도/왕복 설정")) Toast.makeText(getApplicationContext(), "편도/왕복을 선택하세요", Toast.LENGTH_SHORT).show();
-        else if(transporation.getText().toString().equals("차량 종류")) Toast.makeText(getApplicationContext(), "차량 종류를 선택하세요", Toast.LENGTH_SHORT).show();
+        else if(!Show_way.isConfirm) Toast.makeText(getApplicationContext(), "차량 종류를 선택하세요", Toast.LENGTH_SHORT).show();
         else if(purchase.getText().toString().equals("결제수단")) Toast.makeText(getApplicationContext(), "결제 수단을 선택하세요", Toast.LENGTH_SHORT).show();
-        else Toast.makeText(getApplicationContext(), "신청되었습니다", Toast.LENGTH_SHORT).show();
+        else { //결제 내역 작성
+            if(Account.current_index!=Load.non_member_index) { //회원일 경우만 저장
+                String logfile = Load.accounts[Account.current_index].ID + ".dat";
+                String send_name = name1.getText().toString();
+                String send_address = sl.getText().toString();
+                int send_phone = Integer.parseInt(phone1.getText().toString());
+                String receive_name = name2.getText().toString();
+                String receive_address = dl.getText().toString();
+                int receive_phone = Integer.parseInt(phone2.getText().toString());
+                String round = setturn.getText().toString();
+                //size와 weight는 static
+                String path = "";
+                for (int i = 0; i < Show_way.flex.length; i++) {
+                    if (Show_way.flex[i] != null) {
+                        if (i == 0) path += Show_way.flex[i].address;
+                        else path += "->" + Show_way.flex[i].address;
+                    }
+                }
+                String purchase_method = (purchase.getText().toString()).split(": ")[1];
+                //message도 static
+                Date date = new Date();
+                SimpleDateFormat sdformat = new SimpleDateFormat("YY년 MM월 dd일 hh시 mm분");
+                String time = sdformat.format(date);
+                int cost = Show_way.total_cost;
+                try {
+                    BufferedWriter bw = new BufferedWriter(new FileWriter(getFilesDir() + logfile, true));
+                    bw.write(send_name);
+                    bw.newLine();
+                    bw.write(send_address);
+                    bw.newLine();
+                    bw.write(Integer.toString(send_phone));
+                    bw.newLine();
+                    bw.write(receive_name);
+                    bw.newLine();
+                    bw.write(receive_address);
+                    bw.newLine();
+                    bw.write(Integer.toString(receive_phone));
+                    bw.newLine();
+                    bw.write(round);
+                    bw.newLine();
+                    bw.write(Integer.toString(size));
+                    bw.newLine();
+                    bw.write(Integer.toString(weight));
+                    bw.newLine();
+                    bw.write(path);
+                    bw.newLine();
+                    bw.write(purchase_method);
+                    bw.newLine();
+                    bw.write(message);
+                    bw.newLine();
+                    bw.write(time);
+                    bw.newLine();
+                    bw.write(Integer.toString(cost));
+                    bw.newLine();
+                    bw.flush();
+                    bw.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            Toast.makeText(getApplicationContext(), "신청되었습니다", Toast.LENGTH_SHORT).show();
+        }
     }
 
 

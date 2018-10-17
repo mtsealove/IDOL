@@ -2,23 +2,23 @@ package kr.ac.inhagachon.www.idol;
 
 import android.content.Context;
 import android.content.Intent;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.content.res.AssetManager;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.List;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 //파일 로딩을 위해 로딩 시간동안 표시될 페이지
 public class Load extends AppCompatActivity {
@@ -34,14 +34,60 @@ public class Load extends AppCompatActivity {
     static float accuracy;    //정확도
     static String provider;   //위치제공자
     static String current_location; //현재 위치
+    static Logic[] logics=new Logic[200];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
-        TextView logo=(TextView)findViewById(R.id.logo);
-        logo.setText("IDoL");
 
+        //요금 db연동
+        String location;
+        int priority;
+        int id;
+        int next;
+        String address;
+        String transportation;
+        double distance;
+        int min;
+        int cost;
+        double speed;
+        double rate;
+        try {
+            BufferedReader br=new BufferedReader(new InputStreamReader(getAssets().open("way.dat")));
+            String tmp="";
+            int i=0;
+            while((tmp=br.readLine())!=null) {
+                location=tmp;
+                tmp=br.readLine();
+                priority=Integer.parseInt(tmp);
+                tmp=br.readLine();
+                id=Integer.parseInt(tmp);
+                tmp=br.readLine();
+                next=Integer.parseInt(tmp);
+                tmp=br.readLine();
+                address=tmp;
+                tmp=br.readLine();
+                transportation=tmp;
+                tmp=br.readLine();
+                distance=Double.parseDouble(tmp);
+                tmp=br.readLine();
+                min=Integer.parseInt(tmp);
+                tmp=br.readLine();
+                cost=Integer.parseInt(tmp);
+                tmp=br.readLine();
+                speed=Double.parseDouble(tmp);
+                tmp=br.readLine();
+                rate=Double.parseDouble(tmp);
+                logics[i++]=new Logic(location, priority, id, next, address, transportation, distance,min, cost, speed, rate);
+            }
+            Toast.makeText(getApplicationContext(), i+"개 데이터 발견", Toast.LENGTH_SHORT).show();
+            br.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Log.d("waydb", "db입력 실패");
+        }
 
         //계졍 파일 접근 및 인스턴스 생성
 
@@ -95,11 +141,9 @@ public class Load extends AppCompatActivity {
                     if(accounts[i].ID.equals(current_ID)) Account.current_index=i;
                 }
                 //저장된 ID로 로그인
-                move_main();
             }
             else { //로그인 유지가 되어있지 않을 경우 로그인 화면으로 이동
                 Account.current_index=100;
-                move_main();
             }
             br.close();
 
@@ -107,10 +151,8 @@ public class Load extends AppCompatActivity {
             try { //파일이 없을 경우 생성
                 logined.createNewFile();
                 Account.current_index=100;
-                move_main();
             } catch (IOException e1) {
                 Account.current_index=100;
-                move_main();
                 e1.printStackTrace();
             }
             e.printStackTrace();
@@ -118,8 +160,70 @@ public class Load extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        finish();
+        //로그인한 사용자라면 로그 읽어오기
+        if(Account.current_index!=100) {
+            //accounts[Account.current_index].logs
+            File log=new File(getFilesDir()+accounts[Account.current_index].ID+".dat");
+            String send_name;
+            String send_address;
+            int send_phone;
+            String receive_name;
+            String receive_address;
+            int receive_phone;
+            String round;
+            int size;
+            int weight;
+            String path;
+            String purchase_method;
+            String message;
+            String time;
+            int total_cost;
+            try {
+                String tmp="";
+                BufferedReader br=new BufferedReader(new FileReader(log));
+                int i=0;
+                while((tmp=br.readLine())!=null) {
+                    send_name=tmp;
+                    tmp=br.readLine();
+                    send_address=tmp;
+                    tmp=br.readLine();
+                    send_phone=Integer.parseInt(tmp);
+                    tmp=br.readLine();
+                    receive_name=tmp;
+                    tmp=br.readLine();
+                    receive_address=tmp;
+                    tmp=br.readLine();
+                    receive_phone=Integer.parseInt(tmp);
+                    tmp=br.readLine();
+                    round=tmp;
+                    tmp=br.readLine();
+                    size=Integer.parseInt(tmp);
+                    tmp=br.readLine();
+                    weight=Integer.parseInt(tmp);
+                    tmp=br.readLine();
+                    path=tmp;
+                    tmp=br.readLine();
+                    purchase_method=tmp;
+                    tmp=br.readLine();
+                    message=tmp;
+                    tmp=br.readLine();
+                    time=tmp;
+                    tmp=br.readLine();
+                    total_cost=Integer.parseInt(tmp);
+                    accounts[Account.current_index].logs[i++]=new LOG(send_name, send_address, send_phone, receive_name, receive_address, receive_phone, round, size, weight, path, purchase_method, message, time, total_cost);
+                }
+                View_log.count=i;
 
+            } catch (FileNotFoundException e) {
+                Log.d("file", "로그 없음");
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+        move_main();
     }
 
     public void move_main() {
@@ -128,4 +232,4 @@ public class Load extends AppCompatActivity {
         finish();
     }
 
-}
+    }
