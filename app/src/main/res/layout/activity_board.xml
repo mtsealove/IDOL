@@ -1,42 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary">
+        android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/name"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="게시판"
-            android:textSize="30sp"
-            android:textColor="#000000"
-            android:layout_margin="20dp"/>
+            android:background="@drawable/list_background">
+
+            <Button
+                android:id="@+id/back"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="20dp"
+                android:background="@drawable/back" />
+
+            <TextView
+                android:id="@+id/content_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginVertical="10dp"
+                android:text="글 제목"
+                android:textColor="#000000"
+                android:textSize="25sp" />
+        </RelativeLayout>
+        
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="550dp"
+            android:background="@drawable/etbackground"
+            android:layout_margin="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:id="@+id/content"
+                    android:textColor="#000000"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/contents"
+                    android:textSize="20sp"/>
+            </LinearLayout>
+        </ScrollView>
+
+        
     </LinearLayout>
 
-    <ScrollView
-        android:layout_margin="10dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:orientation="horizontal"
+        >
 
-        <LinearLayout
+        <EditText
+            android:background="@drawable/etbackground"
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:hint="댓글 입력"
+            android:padding="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_weight="10"/>
+        <Button
+            android:background="@color/colorPrimary"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="입력"
+            android:textSize="20sp"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
-            <ListView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="600dp"
-                android:entries="@array/notice"/>
-        </LinearLayout>
-
-    </ScrollView>
-
-</LinearLayout>
+</FrameLayout>

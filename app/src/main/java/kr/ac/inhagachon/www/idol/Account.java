@@ -23,10 +23,10 @@ public class Account {
 class LOG {
     String send_name;
     String send_address;
-    int send_phone;
+    String send_phone;
     String receive_name;
     String receive_address;
-    int receive_phone;
+    String receive_phone;
     String round;
     int size;
     int weight;
@@ -36,7 +36,7 @@ class LOG {
     String time;
     int cost;
 
-    LOG(String send_name, String send_address, int send_phone, String receive_name, String receive_address, int receive_phone, String round, int size, int weight, String path, String purchase_method, String message, String time, int cost) {
+    LOG(String send_name, String send_address, String send_phone, String receive_name, String receive_address, String receive_phone, String round, int size, int weight, String path, String purchase_method, String message, String time, int cost) {
         this.send_name=send_name;
         this.send_address=send_address;
         this.send_phone=send_phone;

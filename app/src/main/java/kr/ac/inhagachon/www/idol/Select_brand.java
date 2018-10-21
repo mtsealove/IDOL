@@ -1,17 +1,12 @@
 package kr.ac.inhagachon.www.idol;
-import android.app.Dialog;
-import android.content.Context;
+
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -24,7 +19,7 @@ public class Select_brand extends AppCompatActivity implements View.OnClickListe
         super.onCreate(si);
         setContentView(R.layout.dialog_select_brand);
 
-        TabHost tabHost1 = (TabHost) findViewById(R.id.tabHost1) ;
+        TabHost tabHost1 = findViewById(R.id.tabHost1);
         tabHost1.setup() ; // 첫 번째 Tab. (탭 표시 텍스트:"TAB 1"), (페이지 뷰:"content1")
         TabHost.TabSpec ts1 = tabHost1.newTabSpec("Tab Spec 1") ;
         ts1.setContent(R.id.suggest) ;
@@ -57,13 +52,13 @@ public class Select_brand extends AppCompatActivity implements View.OnClickListe
         for(int i=0; i<time.length; i++) {
             rate[i]=Integer.parseInt(srate[i]);
             speed[i]=Integer.parseInt(km[i]);
-            time[i] = (int) ((double)(distance / speed[i])*60);
+            time[i] = (int) (distance / speed[i] *60);
             price[i]=(int)(rate[i]*distance*speed[i])/100-((int)(rate[i]*distance*speed[i])/100)%100;
-            stime[i]= Integer.toString((int)(time[i]/60))+"시간 "+Integer.toString(time[i]%60)+"분";
+            stime[i]= Integer.toString(time[i]/60)+"시간 "+Integer.toString(time[i]%60)+"분";
         }
 
 
-        LinearLayout suggest_list=(LinearLayout)findViewById(R.id.sugget_list);
+        LinearLayout suggest_list= findViewById(R.id.sugget_list);
         LayoutInflater inflater=getLayoutInflater();
 
         //추천순 정렬
@@ -85,9 +80,9 @@ public class Select_brand extends AppCompatActivity implements View.OnClickListe
         View[] list1=new View[speed.length];
         for(int i=0; i<speed.length; i++) {
             list1[i] = inflater.inflate(R.layout.show_brand, null);
-            TextView n = (TextView) list1[i].findViewById(R.id.name);
-            TextView p = (TextView) list1[i].findViewById(R.id.price);
-            TextView t = (TextView) list1[i].findViewById(R.id.time);
+            TextView n = list1[i].findViewById(R.id.name);
+            TextView p = list1[i].findViewById(R.id.price);
+            TextView t = list1[i].findViewById(R.id.time);
             n.setText(name[i]);
             p.setText(price[i] + "원");
             t.setText(stime[i]);
@@ -111,13 +106,13 @@ public class Select_brand extends AppCompatActivity implements View.OnClickListe
             }
         }
         //시간 레이아웃에 추가
-        LinearLayout short_way=(LinearLayout)findViewById(R.id.short_list);
+        LinearLayout short_way= findViewById(R.id.short_list);
         View[] list2=new View[speed.length];
         for(int i=0; i<speed.length; i++) {
             list2[i] = inflater.inflate(R.layout.show_brand, null);
-            TextView n = (TextView) list2[i].findViewById(R.id.name);
-            TextView p = (TextView) list2[i].findViewById(R.id.price);
-            TextView t = (TextView) list2[i].findViewById(R.id.time);
+            TextView n = list2[i].findViewById(R.id.name);
+            TextView p = list2[i].findViewById(R.id.price);
+            TextView t = list2[i].findViewById(R.id.time);
             n.setText(name[i]);
             p.setText(price[i] + "원");
             t.setText(stime[i]);
@@ -141,13 +136,13 @@ public class Select_brand extends AppCompatActivity implements View.OnClickListe
             }
         }
         //비용 레이아웃에 추가
-        LinearLayout low_benefit=(LinearLayout)findViewById(R.id.low_list);
+        LinearLayout low_benefit= findViewById(R.id.low_list);
         View[] list3=new View[speed.length];
         for(int i=0; i<speed.length; i++) {
             list3[i] = inflater.inflate(R.layout.show_brand, null);
-            TextView n = (TextView) list3[i].findViewById(R.id.name);
-            TextView p = (TextView) list3[i].findViewById(R.id.price);
-            TextView t = (TextView) list3[i].findViewById(R.id.time);
+            TextView n = list3[i].findViewById(R.id.name);
+            TextView p = list3[i].findViewById(R.id.price);
+            TextView t = list3[i].findViewById(R.id.time);
             n.setText(name[i]);
             p.setText(price[i] + "원");
             t.setText(stime[i]);
@@ -173,9 +168,9 @@ public class Select_brand extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) { //선택한 업체 저장
-        TextView name=(TextView)v.findViewById(R.id.name);
-        TextView price=(TextView)v.findViewById(R.id.price);
-        TextView time=(TextView)v.findViewById(R.id.time);
+        TextView name= v.findViewById(R.id.name);
+        TextView price= v.findViewById(R.id.price);
+        TextView time= v.findViewById(R.id.time);
         final_name=name.getText().toString();
         final_price=price.getText().toString();
         final_time=time.getText().toString();

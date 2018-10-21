@@ -13,20 +13,15 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,9 +36,6 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
-import java.util.zip.Inflater;
-
-import javax.microedition.khronos.egl.EGLDisplay;
 
 public class SelectMap extends AppCompatActivity implements OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
     LatLng start_location;
@@ -70,7 +62,7 @@ public class SelectMap extends AppCompatActivity implements OnMapReadyCallback, 
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        ListView adlb = (ListView) findViewById(R.id.address);
+        ListView adlb = findViewById(R.id.address);
         adlb.setVisibility(View.GONE);
 
     }
@@ -117,14 +109,14 @@ public class SelectMap extends AppCompatActivity implements OnMapReadyCallback, 
 
 
         //검색 버튼 이벤트
-        ImageView search = (ImageView) findViewById(R.id.search);
+        ImageView search = findViewById(R.id.search);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 search_location(map);
             }
         });
-        EditText input = (EditText) findViewById(R.id.input_location);
+        EditText input = findViewById(R.id.input_location);
         input.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -143,7 +135,7 @@ public class SelectMap extends AppCompatActivity implements OnMapReadyCallback, 
 
     public void search_location(GoogleMap map) {
         Geocoder geocoder = new Geocoder(this);
-        EditText input_location = (EditText) findViewById(R.id.input_location);
+        EditText input_location = findViewById(R.id.input_location);
         InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(input_location.getWindowToken(), 0);
         String location = input_location.getText().toString();
@@ -179,12 +171,12 @@ public class SelectMap extends AppCompatActivity implements OnMapReadyCallback, 
         markerOptions1.position(select_location);
         map.addMarker(markerOptions1);
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(select_location, 17));
-        TextView tmp_result = (TextView) findViewById(R.id.tmp_result);
+        TextView tmp_result = findViewById(R.id.tmp_result);
 
         //임시 텍스트 삭제
         tmp_result.setVisibility(View.GONE);
         //레이아웃에 새 뷰 추가
-        ListView listView = (ListView) findViewById(R.id.address);
+        ListView listView = findViewById(R.id.address);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, ads);
         listView.setAdapter(adapter);
         listView.setVisibility(View.VISIBLE);

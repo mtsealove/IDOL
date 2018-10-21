@@ -1,15 +1,10 @@
 package kr.ac.inhagachon.www.idol;
 
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Size;
-import android.view.Gravity;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +36,7 @@ public class Show_bill extends AppCompatActivity {
         ArrayAdapter<String> adapter=new ArrayAdapter<String>(getApplicationContext(), R.layout.gridview_layout, All);
 
         //그리드 뷰 생성
-        GridView gridView=(GridView)findViewById(R.id.gv);
+        GridView gridView= findViewById(R.id.gv);
         gridView.setAdapter(adapter);
 
 

@@ -3,6 +3,7 @@ package kr.ac.inhagachon.www.idol;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -15,6 +16,14 @@ public class Inquire_log extends AppCompatActivity {
         Intent intent=getIntent();
         int index=intent.getIntExtra("log_index", 0);
         LOG log=Load.accounts[Account.current_index].logs[index];
+
+        Button back= findViewById(R.id.back);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
         //뷰 매칭
         TextView sname= findViewById(R.id.send_name);
@@ -33,10 +42,10 @@ public class Inquire_log extends AppCompatActivity {
 
         //매칭에 맞게 설정
         sname.setText("이름: "+log.send_name);
-        sphone.setText("전화번호: 0"+log.send_phone);
+        sphone.setText("전화번호: "+log.send_phone);
         saddress.setText("주소: "+log.send_address);
         rname.setText("이름: "+log.receive_name);
-        rphone.setText("전화번호: 0"+log.receive_phone);
+        rphone.setText("전화번호: "+log.receive_phone);
         raddress.setText("주소: "+log.receive_address);
         size.setText("크기: "+log.size+"cm");
         weight.setText("무게: "+log.weight+"kg");

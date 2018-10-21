@@ -4,4 +4,5 @@
     <string name="tmp_result">찾으실 지번주소 혹은\n도로명 주소를 검색해주세요</string>
     <string name="egg">기획: 박두용\nUI/UX: 신국화\n개발: 이산해\n\n어려워요</string>
     <string name="wronginfo">정보가 정확하지 않으면\n불이익이 발생할 수 있습니다</string>
+    <string name="contents">공지사항과 여러 \n게시판에 관한 레이아웃 입니다</string>
 </resources>

@@ -8,6 +8,11 @@
     android:background="#FFFFFF"
     android:id="@+id/main_layout">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
     <!--메인 레이아웃-->
     <LinearLayout
         android:id="@+id/home"
@@ -43,11 +48,11 @@
                     android:layout_margin="10dp"/>
             </LinearLayout>
 
-            <ImageView
+            <Button
                 android:id="@+id/slide_menu"
                 android:layout_width="53dp"
                 android:layout_height="56dp"
-                app:srcCompat="@drawable/slidemenu"
+                android:background="@drawable/slidemenu"
                 />
 
             <ImageView
@@ -100,6 +105,7 @@
                         android:text="출발지 검색"
                         android:textColor="#000000"
                         android:textSize="25sp"
+                        android:padding="3dp"
                         android:background="@drawable/background"
                         android:layout_marginTop="10dp"
                         android:layout_marginHorizontal="10dp"/>
@@ -121,10 +127,13 @@
                         android:textColor="#000000"/>
 
                     <EditText
+                        android:paddingLeft="10dp"
                         android:id="@+id/sendname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/etbackground"
+                        android:inputType="textPersonName"
+                        android:padding="3dp"
                         android:textSize="25sp" />
                 </LinearLayout>
 
@@ -144,12 +153,14 @@
                         android:textColor="#000000"/>
 
                     <EditText
+                        android:paddingLeft="10dp"
                         android:id="@+id/sendphone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/etbackground"
                         android:inputType="phone"
-                        android:textSize="25sp" />
+                        android:textSize="25sp"
+                        android:padding="3dp"/>
                 </LinearLayout>
 
                 <!--도착지-->
@@ -160,6 +171,7 @@
                     android:text="도착지 검색"
                     android:textColor="#000000"
                     android:textSize="25sp"
+                    android:padding="3dp"
                     android:background="@drawable/background"
                     android:layout_marginTop="10dp"
                     android:layout_marginHorizontal="10dp"
@@ -186,6 +198,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/etbackground"
+                        android:inputType="textPersonName"
+                        android:padding="3dp"
                         android:textSize="25sp" />
                 </LinearLayout>
 
@@ -211,7 +225,8 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/etbackground"
                         android:inputType="phone"
-                        android:textSize="25sp" />
+                        android:textSize="25sp"
+                        android:padding="3dp"/>
                 </LinearLayout>
                 </LinearLayout>
 
@@ -403,6 +418,35 @@
            </LinearLayout>
         </ScrollView>
     </LinearLayout>
+    <!--경로 계산 시 사용될 화면-->
+
+        <LinearLayout
+            android:id="@+id/pb"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="70dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/etbackground"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="경로 계산중"
+                android:layout_gravity="center"
+                android:textColor="#000000"
+                android:textSize="25sp"
+                android:layout_margin="10dp"/>
+            <ProgressBar
+                android:layout_gravity="center_horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                />
+        </LinearLayout>
+
+    </RelativeLayout>
 
     <!--서브 메뉴 출력 레이아웃-->
     <LinearLayout

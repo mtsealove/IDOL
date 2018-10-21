@@ -2,9 +2,7 @@ package kr.ac.inhagachon.www.idol;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -22,7 +20,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(saveInstanceState);
         setContentView(R.layout.activity_login);
 
-        Button login=(Button)findViewById(R.id.login);
+        Button login= findViewById(R.id.login);
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -30,7 +28,7 @@ public class Login extends AppCompatActivity {
             }
         });
 
-        Button register=(Button)findViewById(R.id.register);
+        Button register= findViewById(R.id.register);
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,9 +40,9 @@ public class Login extends AppCompatActivity {
     }
 
     public void Start_login() { //로그인 프롬프트를 출력할 메서드
-        final EditText input_ID = (EditText) findViewById(R.id.input_ID);
-        final EditText input_password = (EditText) findViewById(R.id.input_password);
-        final CheckBox keep_login = (CheckBox) findViewById(R.id.keep_login);
+        final EditText input_ID = findViewById(R.id.input_ID);
+        final EditText input_password = findViewById(R.id.input_password);
+        final CheckBox keep_login = findViewById(R.id.keep_login);
 
 
         String ID = input_ID.getText().toString();

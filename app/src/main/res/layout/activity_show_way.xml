@@ -4,16 +4,12 @@
     android:layout_height="match_parent"
     android:id="@+id/low_benefit_main">
 
-    <fragment
-        android:id="@+id/map_for_show"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        class="com.google.android.gms.maps.MapFragment"/>
+
 
     <!--출발지와 도착지 표시-->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_gravity="top"
         android:background="#FFFFFF"
         android:orientation="vertical">
@@ -64,6 +60,12 @@
             android:layout_marginBottom="10dp"
             android:text="도착: 어딘가"
             android:padding="5dp"/>
+
+        <fragment
+            android:id="@+id/map_for_show"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            class="com.google.android.gms.maps.MapFragment"/>
     </LinearLayout>
 
     <!--하단 레이아웃-->

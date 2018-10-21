@@ -1,23 +1,16 @@
 package kr.ac.inhagachon.www.idol;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.AssetManager;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 //파일 로딩을 위해 로딩 시간동안 표시될 페이지
@@ -82,7 +75,6 @@ public class Load extends AppCompatActivity {
                 rate=Double.parseDouble(tmp);
                 logics[i++]=new Logic(location, priority, id, next, address, transportation, distance,min, cost, speed, rate);
             }
-            Toast.makeText(getApplicationContext(), i+"개 데이터 발견", Toast.LENGTH_SHORT).show();
             br.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -161,69 +153,15 @@ public class Load extends AppCompatActivity {
         }
 
         //로그인한 사용자라면 로그 읽어오기
-        if(Account.current_index!=100) {
-            //accounts[Account.current_index].logs
-            File log=new File(getFilesDir()+accounts[Account.current_index].ID+".dat");
-            String send_name;
-            String send_address;
-            int send_phone;
-            String receive_name;
-            String receive_address;
-            int receive_phone;
-            String round;
-            int size;
-            int weight;
-            String path;
-            String purchase_method;
-            String message;
-            String time;
-            int total_cost;
-            try {
-                String tmp="";
-                BufferedReader br=new BufferedReader(new FileReader(log));
-                int i=0;
-                while((tmp=br.readLine())!=null) {
-                    send_name=tmp;
-                    tmp=br.readLine();
-                    send_address=tmp;
-                    tmp=br.readLine();
-                    send_phone=Integer.parseInt(tmp);
-                    tmp=br.readLine();
-                    receive_name=tmp;
-                    tmp=br.readLine();
-                    receive_address=tmp;
-                    tmp=br.readLine();
-                    receive_phone=Integer.parseInt(tmp);
-                    tmp=br.readLine();
-                    round=tmp;
-                    tmp=br.readLine();
-                    size=Integer.parseInt(tmp);
-                    tmp=br.readLine();
-                    weight=Integer.parseInt(tmp);
-                    tmp=br.readLine();
-                    path=tmp;
-                    tmp=br.readLine();
-                    purchase_method=tmp;
-                    tmp=br.readLine();
-                    message=tmp;
-                    tmp=br.readLine();
-                    time=tmp;
-                    tmp=br.readLine();
-                    total_cost=Integer.parseInt(tmp);
-                    accounts[Account.current_index].logs[i++]=new LOG(send_name, send_address, send_phone, receive_name, receive_address, receive_phone, round, size, weight, path, purchase_method, message, time, total_cost);
-                }
-                View_log.count=i;
 
-            } catch (FileNotFoundException e) {
-                Log.d("file", "로그 없음");
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+
+        Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                move_main();
             }
-        }
-
-
-        move_main();
+        }, 500);
     }
 
     public void move_main() {

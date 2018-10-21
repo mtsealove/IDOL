@@ -43,22 +43,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="20dp"
+        android:padding="10dp"
         android:gravity="center">
 
         <Button
             android:id="@+id/input"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="60dp"
+            android:layout_weight="1"
             android:background="@color/colorPrimary"
             android:text="작성"
             android:textSize="25sp" />
 
         <Button
             android:id="@+id/cancel"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="#FA0303"
             android:text="취소"
             android:textColor="#FFFFFF"

@@ -1,16 +1,12 @@
 package kr.ac.inhagachon.www.idol;
 
 import android.app.FragmentManager;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -36,10 +32,12 @@ public class Show_way extends AppCompatActivity implements OnMapReadyCallback {
     static Logic[] flex; //경유지 리스트
     static boolean isConfirm=false;
     boolean reverse;
+
     @Override
     protected void onCreate(Bundle si) {
         super.onCreate(si);
         setContentView(R.layout.activity_show_way);
+
         ImageView back= findViewById(R.id.goback);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +141,6 @@ public class Show_way extends AppCompatActivity implements OnMapReadyCallback {
         if(title.equals("최소비용")) flex=find_low_cost();
         else if(title.equals("최단시간")) flex=find_short_way();
         else if(title.equals("추천경로")) flex=find_suggest_way();
-
         //경로를 화면에 출력
         LinearLayout detail= findViewById(R.id.detail_list);
         LayoutInflater inflater=getLayoutInflater();
@@ -206,6 +203,7 @@ public class Show_way extends AppCompatActivity implements OnMapReadyCallback {
         else if(sddistnace>30) v=10;
         else v=11;
         map.animateCamera(CameraUpdateFactory.zoomTo(v));
+        Main.pb.setVisibility(View.GONE);
     }
 
     private LatLng midPoint(LatLng lt1, LatLng lt2){ //위경도 중간지점 반환
