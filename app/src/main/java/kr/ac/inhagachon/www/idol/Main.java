@@ -617,7 +617,7 @@ public class Main extends AppCompatActivity {
                         transporation.setText("차량 종류");
                         purchase.setText("결제수단");
 
-                        Toast.makeText(getApplicationContext(), "신청되었습니다", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "배송이 신청되었습니다", Toast.LENGTH_SHORT).show();
                       dialog.cancel();
 
                     }
@@ -629,8 +629,9 @@ public class Main extends AppCompatActivity {
                     }
                 });
             }
-
+            else Toast.makeText(getApplicationContext(), "배송이 신청되었습니다", Toast.LENGTH_SHORT).show();
         }
+
     }
 
 

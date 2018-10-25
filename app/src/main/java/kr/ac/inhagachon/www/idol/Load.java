@@ -199,6 +199,21 @@ public class Load extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},0);
         }
 
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            //0.5초 뒤에 메인으로 이동
+            Handler handler=new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    move_main();
+                }
+            }, 500);
+        } else{
+            //사용자에게 접근권한 설정을 요구하는 다이얼로그를 띄운다.
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+
+        }
+
     }
 
     public void move_main() {
