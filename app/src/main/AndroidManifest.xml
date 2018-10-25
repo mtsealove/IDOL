@@ -36,7 +36,6 @@
         <activity android:name=".Faq"/>
         <activity android:name=".Show_bill"/>
         <activity android:name=".Show_way" android:screenOrientation="portrait"/>
-        <activity android:name=".Select_brand"/>
         <activity android:name=".View_log" />
         <activity android:name=".Inquire_log"/>
         <activity android:name=".Each_board"/>
