@@ -193,20 +193,10 @@
                     android:background="@drawable/list_background"/>
 
                 <TextView
-                    android:id="@+id/round"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="편도/왕복"
-                    android:textColor="#000000"
-                    android:textSize="17sp" />
-
-                <TextView
                     android:id="@+id/path"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="10dp"
+                    android:layout_margin="10dp"
                     android:text="경로"
                     android:textColor="#000000"
                     android:textSize="17sp" />

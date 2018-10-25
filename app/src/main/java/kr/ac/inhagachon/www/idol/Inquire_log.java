@@ -34,11 +34,18 @@ public class Inquire_log extends AppCompatActivity {
         TextView raddress= findViewById(R.id.receive_address);
         TextView size= findViewById(R.id.size);
         TextView weight= findViewById(R.id.weight);
-        TextView round= findViewById(R.id.round);
         TextView path= findViewById(R.id.path);
         TextView cost= findViewById(R.id.cost);
         TextView pay= findViewById(R.id.payment);
         TextView time= findViewById(R.id.time);
+
+        String[] paths=log.path.split(",");
+        String path4display="";
+        for(int i=0; i<paths.length; i++) {
+            path4display+=paths[i];
+            if(i!=paths.length-1) path4display+="\n";
+        }
+
 
         //매칭에 맞게 설정
         sname.setText("이름: "+log.send_name);
@@ -49,8 +56,7 @@ public class Inquire_log extends AppCompatActivity {
         raddress.setText("주소: "+log.receive_address);
         size.setText("크기: "+log.size+"cm");
         weight.setText("무게: "+log.weight+"kg");
-        round.setText(log.round);
-        path.setText("경유지: "+log.path);
+        path.setText(path4display);
         cost.setText("결제 금액: "+log.cost);
         pay.setText("결제 수단: "+log.purchase_method);
         time.setText("구매시간: "+log.time);

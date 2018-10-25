@@ -86,16 +86,17 @@
                     android:background="@drawable/list_background"
                     android:id="@+id/set_st_ed">
                 <!--출발지-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="배송 경로 설정하기"
-                    android:textColor="#000000"
-                    android:textSize="25sp"
-                    android:background="#FFCC00"
-                    android:gravity="center"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginHorizontal="10dp"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="10dp"
+                        android:layout_marginTop="10dp"
+                        android:background="#FFCC00"
+                        android:gravity="center"
+                        android:text="배송 경로 설정하기"
+                        android:textColor="#000000"
+                        android:paddingVertical="3dp"
+                        android:textSize="24sp" />
 
 
                     <TextView
@@ -104,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:text="출발지 검색"
                         android:textColor="#000000"
-                        android:textSize="25sp"
+                        android:textSize="20sp"
                         android:padding="3dp"
                         android:background="@drawable/background"
                         android:layout_marginTop="10dp"
@@ -120,21 +121,21 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25sp"
-                        android:text="이름"
+                        android:layout_marginRight="41dp"
                         android:inputType="textPersonName"
-                        android:layout_marginRight="43dp"
-                        android:textColor="#000000"/>
+                        android:text="이름"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
 
                     <EditText
-                        android:paddingLeft="10dp"
                         android:id="@+id/sendname"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/etbackground"
                         android:inputType="textPersonName"
                         android:padding="3dp"
-                        android:textSize="25sp" />
+                        android:paddingLeft="10dp"
+                        android:textSize="23sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -147,20 +148,20 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25sp"
-                        android:text="연락처"
                         android:layout_marginRight="20dp"
-                        android:textColor="#000000"/>
+                        android:text="연락처"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
 
                     <EditText
-                        android:paddingLeft="10dp"
                         android:id="@+id/sendphone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@drawable/etbackground"
                         android:inputType="phone"
-                        android:textSize="25sp"
-                        android:padding="3dp"/>
+                        android:padding="3dp"
+                        android:paddingLeft="10dp"
+                        android:textSize="23sp" />
                 </LinearLayout>
 
                 <!--도착지-->
@@ -170,7 +171,7 @@
                     android:layout_height="wrap_content"
                     android:text="도착지 검색"
                     android:textColor="#000000"
-                    android:textSize="25sp"
+                    android:textSize="20sp"
                     android:padding="3dp"
                     android:background="@drawable/background"
                     android:layout_marginTop="10dp"
@@ -187,11 +188,11 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25sp"
-                        android:text="이름"
+                        android:layout_marginRight="41dp"
                         android:inputType="textPersonName"
-                        android:layout_marginRight="43dp"
-                        android:textColor="#000000"/>
+                        android:text="이름"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
 
                     <EditText
                         android:id="@+id/receivename"
@@ -200,7 +201,7 @@
                         android:background="@drawable/etbackground"
                         android:inputType="textPersonName"
                         android:padding="3dp"
-                        android:textSize="25sp" />
+                        android:textSize="23sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -214,10 +215,10 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="25sp"
-                        android:text="연락처"
                         android:layout_marginRight="20dp"
-                        android:textColor="#000000"/>
+                        android:text="연락처"
+                        android:textColor="#000000"
+                        android:textSize="24sp" />
 
                     <EditText
                         android:id="@+id/recievephone"
@@ -225,40 +226,12 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/etbackground"
                         android:inputType="phone"
-                        android:textSize="25sp"
-                        android:padding="3dp"/>
+                        android:padding="3dp"
+                        android:textSize="23sp" />
                 </LinearLayout>
                 </LinearLayout>
 
                 <!--편도/왕복 선택-->
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/commonbackgroud"
-                    android:onClick="set_round_trip">
-
-                    <TextView
-                        android:id="@+id/setreturn"
-                        android:layout_width="163dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginEnd="10dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginTop="10dp"
-                        android:text="편도/왕복 설정"
-                        android:textColor="#000000"
-                        android:textSize="25sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="10dp"
-                        android:src="@drawable/move" />
-                </RelativeLayout>
 
 
                 <!--운송수단 설정-->
@@ -267,9 +240,10 @@
                     android:layout_height="wrap_content"
                     android:text="운송수단 설정하기"
                     android:textColor="#000000"
-                    android:textSize="25sp"
+                    android:textSize="24sp"
                     android:background="#FFCC00"
                     android:gravity="center"
+                    android:paddingVertical="3dp"
                     android:layout_margin="10dp"/>
 
                 <RelativeLayout
@@ -290,7 +264,7 @@
                         android:layout_marginTop="10dp"
                         android:text="화물 종류 입력"
                         android:textColor="#000000"
-                        android:textSize="25sp" />
+                        android:textSize="24sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -319,7 +293,7 @@
                         android:layout_marginTop="10dp"
                         android:text="차량 종류"
                         android:textColor="#000000"
-                        android:textSize="25sp" />
+                        android:textSize="24sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -349,7 +323,7 @@
                         android:layout_marginTop="10dp"
                         android:text="결제수단"
                         android:textColor="#000000"
-                        android:textSize="25sp" />
+                        android:textSize="24sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -377,7 +351,7 @@
                         android:layout_marginTop="10dp"
                         android:text="메세지 입력"
                         android:textColor="#000000"
-                        android:textSize="25sp" />
+                        android:textSize="24sp" />
 
 
                     <ImageView
@@ -397,7 +371,6 @@
                     android:layout_margin="10dp"
                     android:gravity="center"
                     android:paddingVertical="10dp"
-                    android:text="배송"
                     android:textColor="#000000"
                     android:textSize="25sp"
                     android:visibility="gone"/>
@@ -453,7 +426,7 @@
         android:layout_width="280dp"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@drawable/slidemenu_layout"
+        android:background="#FFFFFF"
         android:layout_gravity="start"
         android:clickable="true">
 
@@ -467,74 +440,74 @@
                 android:orientation="vertical">
 
                 //로고
+
                 <LinearLayout
                     android:id="@+id/egg"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
                     android:background="@drawable/list_background"
-                    >
+                    android:orientation="vertical">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/icon"
                         android:layout_gravity="center"
-                        android:layout_marginTop="50dp"/>
+                        android:layout_marginTop="50dp"
+                        android:src="@drawable/icon" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="@string/app_name"
-                        android:textSize="35sp"
-                        android:layout_marginTop="20dp"
                         android:layout_marginBottom="40dp"
-                        android:textColor="#000000"/>
+                        android:layout_marginTop="20dp"
+                        android:text="@string/app_name"
+                        android:textColor="#000000"
+                        android:textSize="35sp" />
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/user_name"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:text="로그인 하세요"
-                    android:textSize="25sp"
-                    android:textColor="#000000"
+                    android:background="@drawable/commonbackgroud"
                     android:gravity="center"
-                    android:background="@drawable/commonbackgroud"/>
+                    android:text="로그인 하세요"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/notice"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:text="공지사항"
-                    android:textSize="25sp"
-                    android:textColor="#000000"
-                    android:gravity="center"
                     android:background="@drawable/commonbackgroud"
-                    android:onClick="notice_board"/>
+                    android:gravity="center"
+                    android:onClick="notice_board"
+                    android:text="공지사항"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/FAQ"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:text="FAQ"
-                    android:textSize="25sp"
-                    android:textColor="#000000"
-                    android:gravity="center"
                     android:background="@drawable/commonbackgroud"
-                    android:onClick="faq"/>
+                    android:gravity="center"
+                    android:onClick="faq"
+                    android:text="FAQ"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
 
                 <TextView
                     android:id="@+id/bill_list"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:text="요금표 확인"
-                    android:textSize="25sp"
-                    android:textColor="#000000"
-                    android:gravity="center"
                     android:background="@drawable/commonbackgroud"
-                    android:onClick="show_bill_list"/>
+                    android:gravity="center"
+                    android:onClick="show_bill_list"
+                    android:text="요금표 확인"
+                    android:textColor="#000000"
+                    android:textSize="25sp" />
             </LinearLayout>
         </ScrollView>
 

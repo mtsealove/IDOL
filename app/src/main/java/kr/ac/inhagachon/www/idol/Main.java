@@ -13,14 +13,10 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -106,8 +102,7 @@ public class Main extends AppCompatActivity {
                     ID.setText("ID: "+Load.accounts[Account.current_index].ID);
                     phone.setText("전화번호: 0"+Load.accounts[Account.current_index].phone_number);
                     AlertDialog.Builder builder=new AlertDialog.Builder(Main.this);
-                    builder.setTitle("계정 정보")
-                            .setCancelable(true)
+                    builder.setCancelable(true)
                             .setView(account_info);
                     AlertDialog dialog=builder.create();
                     dialog.show();
@@ -184,28 +179,6 @@ public class Main extends AppCompatActivity {
         }
     }
 
-    public void set_round_trip(View v) { //편도/왕복 설정 메서드
-        final TextView label= findViewById(R.id.setreturn);
-        String[] list={"편도", "왕복"};
-        ListView listView=new ListView(this);
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(Main.this, R.layout.layout, list);
-        listView.setAdapter(adapter);
-
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
-        builder.setTitle("편도/왕복 설정")
-                .setView(listView)
-        .setCancelable(false);
-        final AlertDialog dialog=builder.create();
-        dialog.show();
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                label.setText(parent.getItemAtPosition(position).toString()); //화면상의 주소지를 설정
-                dialog.cancel();
-            }
-        });
-    }
 
     public void set_transportation(View v) { //운송 방법 선택 메서드
         String sloc = ((TextView) findViewById(R.id.start_location)).getText().toString(); //출발주소
@@ -266,7 +239,6 @@ public class Main extends AppCompatActivity {
             Button suggets_way= layout.findViewById(R.id.suggest_way);
             Button low_benefit= layout.findViewById(R.id.low_benefit_btn);
             Button short_way= layout.findViewById(R.id.short_way);
-            Button self_select= layout.findViewById(R.id.select_my_self);
             final String finalTotal1 = total1;
             final String finalTotal2 = total2;
             final int finalLogic_length = logic_length;
@@ -302,13 +274,6 @@ public class Main extends AppCompatActivity {
                     show_way.putExtra("title", "최단시간");
                     pb.setVisibility(View.VISIBLE);
                     startActivity(show_way);
-                    dialog.cancel();
-                }
-            });
-            self_select.setOnClickListener(new View.OnClickListener() { //직접 선택 메서드
-                @Override
-                public void onClick(View v) {
-                    self_set_trasportation();
                     dialog.cancel();
                 }
             });
@@ -351,102 +316,6 @@ public class Main extends AppCompatActivity {
     private double rad2deg(double rad){
         return rad * 180d / Math.PI;
     }
-
-    public void self_set_trasportation() { //거리를 계산하여 각 거리에 맞는 운송수단 표시, 직접 선택
-        if(isLongDistance(slatitude, slongitude, dlatitude, dlongitude)) {
-            long_transportation();
-        }
-        else {
-            short_transportation();
-        }
-    }
-
-    protected void long_transportation() { //장거리 운송수단 출력
-            //Alertdialog 생성
-            AlertDialog.Builder builder=new AlertDialog.Builder(Main.this);
-            LayoutInflater inflater=getLayoutInflater();
-            View layout=inflater.inflate(R.layout.dialog_long_transportation, null);
-            builder.setView(layout);
-            final AlertDialog dialog=builder.create();
-            dialog.show();
-
-            final TextView transportation= findViewById(R.id.transporation);
-            //버튼 생성
-            LinearLayout bus= layout.findViewById(R.id.bus);
-            LinearLayout ship= layout.findViewById(R.id.ship);
-            LinearLayout ktx= layout.findViewById(R.id.ktx);
-            LinearLayout quick= layout.findViewById(R.id.quick);
-            LinearLayout subway= layout.findViewById(R.id.subway);
-
-            bus.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    transportation.setText("차량종류: 고속/시외버스");
-                    dialog.cancel();
-                }
-            });
-            ship.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    transportation.setText("차량종류: 선박");
-                    dialog.cancel();
-                }
-            });
-            ktx.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    transportation.setText("차량종류: KTX 특송");
-                    dialog.cancel();
-                }
-            });
-            quick.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent select_brand=new Intent(Main.this, Select_brand.class);
-                    startActivity(select_brand);
-                    transportation.setText("차량종류: 퀵");
-                    dialog.cancel();
-                }
-            });
-            subway.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    transportation.setText("차량종류: 지하철택배");
-                    dialog.cancel();
-                }
-            });
-    }
-
-    protected void short_transportation() { //단거리 차량종류
-            AlertDialog.Builder builder=new AlertDialog.Builder(Main.this);
-            LayoutInflater inflater=getLayoutInflater();
-            View layout=inflater.inflate(R.layout.dialog_short_transportation, null);
-            builder.setView(layout);
-            final AlertDialog dialog=builder.create();
-            dialog.show();
-
-            final TextView transportation= findViewById(R.id.transporation);
-            LinearLayout quick= layout.findViewById(R.id.quick);
-            LinearLayout subway= layout.findViewById(R.id.subway);
-            quick.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent select_brand=new Intent(Main.this, Select_brand.class);
-                    startActivity(select_brand);
-                    transportation.setText("차량종류: 퀵");
-                    dialog.cancel();
-                }
-            });
-            subway.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    transportation.setText("차량종류: 지하철 택배");
-                    dialog.cancel();
-                }
-            });
-    }
-
-
 
     public void set_purchase_method(View v){ //결제수단 설정 메소드
         //dialog 출력
@@ -573,6 +442,8 @@ public class Main extends AppCompatActivity {
         Button cancel= layout.findViewById(R.id.cancel);
         Button input= layout.findViewById(R.id.input);
         final EditText msget= layout.findViewById(R.id.message);
+        final TextView fm= findViewById(R.id.final_message);
+        msget.setText(fm.getText().toString());
 
         cancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -584,10 +455,9 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 message=msget.getText().toString();
-                TextView fm= findViewById(R.id.final_message);
                 fm.setText(message);
                 fm.setVisibility(View.VISIBLE);
-                if(message.length()==0) fm.setText(View.GONE);
+                if(message.length()==0) fm.setVisibility(View.GONE);
                 dialog.cancel();
                 Toast.makeText(getApplicationContext(), "메세지가 저장되었습니다", Toast.LENGTH_SHORT).show();
             }
@@ -653,7 +523,6 @@ public class Main extends AppCompatActivity {
         final EditText phone1= findViewById(R.id.sendphone);
         final EditText name2= findViewById(R.id.receivename);
         final EditText phone2= findViewById(R.id.recievephone);
-        final TextView setturn= findViewById(R.id.setreturn);
         final TextView transporation= findViewById(R.id.transporation);
         final TextView purchase= findViewById(R.id.purchase_method);
         if(sl.getText().toString().equals("출발지 검색")) Toast.makeText(getApplicationContext(), "출발지를 선택하세요", Toast.LENGTH_SHORT).show();
@@ -663,7 +532,6 @@ public class Main extends AppCompatActivity {
         else if(name2.getText().toString().length()==0)Toast.makeText(getApplicationContext(), "받을 사람의 이름을 입력하세요", Toast.LENGTH_SHORT).show();
         else if(phone2.getText().toString().length()==0) Toast.makeText(getApplicationContext(), "보낼 사람의 전화번호를 입력하세요", Toast.LENGTH_SHORT).show();
         else if(!is_setSize) Toast.makeText(getApplicationContext(), "화물의 종류를 선택하세요", Toast.LENGTH_SHORT).show();
-        else if(setturn.getText().toString().equals("편도/왕복 설정")) Toast.makeText(getApplicationContext(), "편도/왕복을 선택하세요", Toast.LENGTH_SHORT).show();
         else if(!Show_way.isConfirm) Toast.makeText(getApplicationContext(), "차량 종류를 선택하세요", Toast.LENGTH_SHORT).show();
         else if(purchase.getText().toString().equals("결제수단")) Toast.makeText(getApplicationContext(), "결제 수단을 선택하세요", Toast.LENGTH_SHORT).show();
         else { //결제 내역 작성
@@ -675,20 +543,18 @@ public class Main extends AppCompatActivity {
                 final String receive_name = name2.getText().toString();
                 final String receive_address = dl.getText().toString();
                 final String receive_phone = phone2.getText().toString();
-                final String round = setturn.getText().toString();
                 //size와 weight는 static
                 String path = "";
                 for (int i = 0; i < Show_way.flex.length; i++) {
                     if (Show_way.flex[i] != null) {
-                        if (i == 0) path += Show_way.flex[i].address;
-                        else path += "->" + Show_way.flex[i].address;
+                        path += Show_way.flex[i].address+"  "+Show_way.flex[i].transportation+"  "+Show_way.flex[i].cost+"원"+",";
                     }
                 }
                 final String path2=path;
                 final String purchase_method = (purchase.getText().toString()).split(": ")[1];
                 //message도 static
                 Date date = new Date();
-                SimpleDateFormat sdformat = new SimpleDateFormat("YY년 MM월 dd일 hh시 mm분");
+                SimpleDateFormat sdformat = new SimpleDateFormat("YY년 MM월 dd일 HH시 mm분");
                 final String time = sdformat.format(date);
                 final int cost = Show_way.total_cost;
 
@@ -723,8 +589,6 @@ public class Main extends AppCompatActivity {
                             bw.newLine();
                             bw.write(receive_phone);
                             bw.newLine();
-                            bw.write(round);
-                            bw.newLine();
                             bw.write(Integer.toString(size));
                             bw.newLine();
                             bw.write(Integer.toString(weight));
@@ -750,7 +614,6 @@ public class Main extends AppCompatActivity {
                         phone1.setText("");
                         name2.setText("");
                         phone2.setText("");
-                        setturn.setText("편도/왕복 설정");
                         transporation.setText("차량 종류");
                         purchase.setText("결제수단");
 

@@ -27,7 +27,6 @@ class LOG {
     String receive_name;
     String receive_address;
     String receive_phone;
-    String round;
     int size;
     int weight;
     String path;
@@ -36,14 +35,13 @@ class LOG {
     String time;
     int cost;
 
-    LOG(String send_name, String send_address, String send_phone, String receive_name, String receive_address, String receive_phone, String round, int size, int weight, String path, String purchase_method, String message, String time, int cost) {
+    LOG(String send_name, String send_address, String send_phone, String receive_name, String receive_address, String receive_phone, int size, int weight, String path, String purchase_method, String message, String time, int cost) {
         this.send_name=send_name;
         this.send_address=send_address;
         this.send_phone=send_phone;
         this.receive_name=receive_name;
         this.receive_address=receive_address;
         this.receive_phone=receive_phone;
-        this.round=round;
         this.size=size;
         this.weight=weight;
         this.path=path;

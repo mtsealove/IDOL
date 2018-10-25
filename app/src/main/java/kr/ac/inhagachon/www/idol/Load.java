@@ -1,7 +1,11 @@
 package kr.ac.inhagachon.www.idol;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -153,8 +157,9 @@ public class Load extends AppCompatActivity {
         }
 
         //로그인한 사용자라면 로그 읽어오기
-
-
+        //권한 요청
+        //check_permission();
+//0.5초 뒤에 메인으로 이동
         Handler handler=new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -169,5 +174,7 @@ public class Load extends AppCompatActivity {
         startActivity(main_page);
         finish();
     }
+
+
 
     }

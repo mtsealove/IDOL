@@ -9,6 +9,8 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -41,7 +43,6 @@ public class View_log extends AppCompatActivity {
             String receive_name;
             String receive_address;
             String receive_phone;
-            String round;
             int size;
             int weight;
             String path;
@@ -66,8 +67,6 @@ public class View_log extends AppCompatActivity {
                     tmp=br.readLine();
                     receive_phone=tmp;
                     tmp=br.readLine();
-                    round=tmp;
-                    tmp=br.readLine();
                     size=Integer.parseInt(tmp);
                     tmp=br.readLine();
                     weight=Integer.parseInt(tmp);
@@ -81,12 +80,16 @@ public class View_log extends AppCompatActivity {
                     time=tmp;
                     tmp=br.readLine();
                     total_cost=Integer.parseInt(tmp);
-                    Load.accounts[Account.current_index].logs[i++]=new LOG(send_name, send_address, send_phone, receive_name, receive_address, receive_phone, round, size, weight, path, purchase_method, message, time, total_cost);
+                    Load.accounts[Account.current_index].logs[i++]=new LOG(send_name, send_address, send_phone, receive_name, receive_address, receive_phone, size, weight, path, purchase_method, message, time, total_cost);
                 }
                 count=i;
 
             } catch (FileNotFoundException e) {
                 Log.d("file", "로그 없음");
+                ScrollView scrollView= findViewById(R.id.list_scroll);
+                RelativeLayout layout= findViewById(R.id.nothing);
+                scrollView.setVisibility(View.GONE);
+                layout.setVisibility(View.VISIBLE);
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();

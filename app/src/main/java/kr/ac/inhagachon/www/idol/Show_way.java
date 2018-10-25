@@ -7,6 +7,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -46,20 +47,18 @@ public class Show_way extends AppCompatActivity implements OnMapReadyCallback {
             }
         });
 
-        //화면상에 표시될 주소
-        TextView slocation= findViewById(R.id.slocation);
-        TextView dlocation= findViewById(R.id.dlocation);
-        //메인 페이지에서 표시될 주소를 가져옴
-        Intent intent=getIntent();
-        start_address=intent.getStringExtra("saddress");
-        destination_address=intent.getStringExtra("daddress");
         //최소비용, 최단거리 표시
+        Intent intent=getIntent();
         String title=intent.getStringExtra("title");
         TextView titlet= findViewById(R.id.title);
         titlet.setText(title);
-        slocation.setText("출발: "+start_address);
-        dlocation.setText("도착: "+destination_address);
 
+
+        //지도 이용 설정
+        FragmentManager fragmentManager = getFragmentManager();
+        MapFragment mapFragment = (MapFragment) fragmentManager
+                .findFragmentById(R.id.map_for_show);
+        mapFragment.getMapAsync(this);
 
         Button toggle_detail= findViewById(R.id.detail);
         toggle_detail.setOnClickListener(new View.OnClickListener() {
@@ -96,17 +95,22 @@ public class Show_way extends AppCompatActivity implements OnMapReadyCallback {
         pay.setOnClickListener(confirm);
         pay2.setOnClickListener(confirm);
 
-        //지도 이용 설정
-        FragmentManager fragmentManager = getFragmentManager();
-        MapFragment mapFragment = (MapFragment) fragmentManager
-                .findFragmentById(R.id.map_for_show);
-        mapFragment.getMapAsync(this);
-
     }
 
     @Override
     public void onMapReady(GoogleMap map) {
         Geocoder geocoder=new Geocoder(Show_way.this);
+        //화면상에 표시될 주소
+        TextView slocation= findViewById(R.id.slocation);
+        TextView dlocation= findViewById(R.id.dlocation);
+        //메인 페이지에서 표시될 주소를 가져옴
+        Intent intent=getIntent();
+        start_address=intent.getStringExtra("saddress");
+        destination_address=intent.getStringExtra("daddress");
+        slocation.setText("출발: "+start_address);
+        dlocation.setText("도착: "+destination_address);
+        Log.d("start address:", start_address);
+        Log.d("destination addredss: ", destination_address);
 
         List<Address> startl=null;
         List<Address> destnl=null;
@@ -136,7 +140,7 @@ public class Show_way extends AppCompatActivity implements OnMapReadyCallback {
         if(!reverse) polylineOptions.add(start);
         else polylineOptions.add(desitnation);
 
-        Intent intent=getIntent();
+
         String title=intent.getStringExtra("title");
         if(title.equals("최소비용")) flex=find_low_cost();
         else if(title.equals("최단시간")) flex=find_short_way();
@@ -152,9 +156,11 @@ public class Show_way extends AppCompatActivity implements OnMapReadyCallback {
                 TextView name= list.findViewById(R.id.name);
                 TextView price= list.findViewById(R.id.price);
                 TextView time= list.findViewById(R.id.time);
+                TextView path=list.findViewById(R.id.path);
                 name.setText(flex[i].transportation);
                 price.setText(flex[i].cost+"원");
                 time.setText(flex[i].min/60+"시간 "+flex[i].min%60+"분");
+                path.setText(flex[i].address);
                 tcost+=flex[i].cost;
                 ttime+=flex[i].min;
                 detail.addView(list);
