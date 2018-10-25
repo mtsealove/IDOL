@@ -1,14 +1,19 @@
 package kr.ac.inhagachon.www.idol;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -32,6 +37,14 @@ public class Load extends AppCompatActivity {
     static String provider;   //위치제공자
     static String current_location; //현재 위치
     static Logic[] logics=new Logic[200];
+
+    int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION=0;
+    int MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION=0;
+
+    public static final String WIFE_STATE = "WIFE";
+    public static final String MOBILE_STATE = "MOBILE";
+    public static final String NONE_STATE = "NONE";
+    private boolean newtwork = true;
 
 
     @Override
@@ -122,8 +135,6 @@ public class Load extends AppCompatActivity {
         //비회원 인스턴스 생성
         accounts[non_member_index]=new Account("비회원", "000000", 0,"non_member", "pw");
 
-
-
         //로그인 유지 저장사항에 대해 판단
 
         File logined=new File(getFilesDir()+LoginFile); //로그인 체크를 위한 파일
@@ -156,17 +167,38 @@ public class Load extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        //로그인한 사용자라면 로그 읽어오기
+        //인터넷 연결 여부 확인
+        String getNetwork =  getWhatKindOfNetwork(getApplication());
+        if(getNetwork.equals("NONE")){
+            newtwork = false;
+        }
+        //인터넷에 연결되어 있지 않으면 0.5초 후 종료
+        if(!newtwork) {
+            Toast.makeText(getApplicationContext(), "인터넷 연결상태를 확인해 주세요\n프로그램을 종료합니다", Toast.LENGTH_SHORT).show();
+            Handler handler=new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    System.exit(0);
+                }
+            }, 1000);
+        }
+
         //권한 요청
-        //check_permission();
-//0.5초 뒤에 메인으로 이동
-        Handler handler=new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                move_main();
-            }
-        }, 500);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            //0.5초 뒤에 메인으로 이동
+            Handler handler=new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    move_main();
+                }
+            }, 500);
+        } else{
+            //사용자에게 접근권한 설정을 요구하는 다이얼로그를 띄운다.
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},0);
+        }
+
     }
 
     public void move_main() {
@@ -175,6 +207,32 @@ public class Load extends AppCompatActivity {
         finish();
     }
 
-
-
+    public static String getWhatKindOfNetwork(Context context){
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                return WIFE_STATE;
+            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                return MOBILE_STATE;
+            }
+        }
+        return NONE_STATE;
     }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResult){
+        super.onRequestPermissionsResult(requestCode, permissions, grantResult);
+        //위 예시에서 requestPermission 메서드를 썼을시 , 마지막 매개변수에 0을 넣어 줬으므로, 매칭
+        if(requestCode == 0){
+            // requestPermission의 두번째 매개변수는 배열이므로 아이템이 여러개 있을 수 있기 때문에 결과를 배열로 받는다.
+            // 해당 예시는 요청 퍼미션이 한개 이므로 i=0 만 호출한다.
+            if(grantResult[0] == 0){
+                move_main();
+                //해당 권한이 승낙된 경우.
+            }else{
+                //해당 권한이 거절된 경우.
+            }
+        }
+    }
+}
