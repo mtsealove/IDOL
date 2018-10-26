@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -210,7 +211,7 @@ public class Load extends AppCompatActivity {
             }, 500);
         } else{
             //사용자에게 접근권한 설정을 요구하는 다이얼로그를 띄운다.
-            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},0);
+            ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.ACCESS_FINE_LOCATION},1);
 
         }
 
@@ -247,6 +248,7 @@ public class Load extends AppCompatActivity {
                 //해당 권한이 승낙된 경우.
             }else{
                 //해당 권한이 거절된 경우.
+                Toast.makeText(getApplicationContext(), "애플리케이션을 사용하려면 위치 권한이 있어야 합니다\n설정에서 위치 권한을 설정해 주십시오", Toast.LENGTH_SHORT).show();
             }
         }
     }
