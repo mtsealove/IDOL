@@ -535,8 +535,7 @@ public class Main extends AppCompatActivity {
         else if(!Show_way.isConfirm) Toast.makeText(getApplicationContext(), "차량 종류를 선택하세요", Toast.LENGTH_SHORT).show();
         else if(purchase.getText().toString().equals("결제수단")) Toast.makeText(getApplicationContext(), "결제 수단을 선택하세요", Toast.LENGTH_SHORT).show();
         else { //결제 내역 작성
-            if(Account.current_index!=Load.non_member_index) { //회원일 경우만 저장
-                final String logfile = Load.accounts[Account.current_index].ID + ".dat";
+                final String logfile = Load.accounts[Account.current_index].ID + ".dat"; //저장할 파일
                 final String send_name = name1.getText().toString();
                 final String send_address = sl.getText().toString();
                 final String send_phone = phone1.getText().toString();
@@ -572,6 +571,14 @@ public class Main extends AppCompatActivity {
                 dialog.show();
                 Button confirm= dialog_confirm.findViewById(R.id.confirm);
                 Button cancel= dialog_confirm.findViewById(R.id.cancel);
+                cancel.setOnClickListener(new View.OnClickListener() { //취소
+                @Override
+                public void onClick(View v) {
+                    dialog.cancel();
+                }
+            });
+
+            if(Account.current_index!=Load.non_member_index) { //회원일 경우만 저장
                 confirm.setOnClickListener(new View.OnClickListener() { //확인 버튼 클릭
                     @Override
                     public void onClick(View v) {
@@ -622,14 +629,25 @@ public class Main extends AppCompatActivity {
 
                     }
                 });
-                cancel.setOnClickListener(new View.OnClickListener() { //취소
+
+            }
+            else {
+                confirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        sl.setText("출발지 검색");
+                        dl.setText("도착지 검색");
+                        name1.setText("");
+                        phone1.setText("");
+                        name2.setText("");
+                        phone2.setText("");
+                        transporation.setText("차량 종류");
+                        purchase.setText("결제수단");
                         dialog.cancel();
+                        Toast.makeText(getApplicationContext(), "배송이 신청되었습니다\n비회원은 내역이 저장되지 않습니다", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
-            else Toast.makeText(getApplicationContext(), "배송이 신청되었습니다", Toast.LENGTH_SHORT).show();
         }
 
     }
