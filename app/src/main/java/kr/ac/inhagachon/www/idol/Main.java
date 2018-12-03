@@ -20,6 +20,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -51,8 +54,8 @@ public class Main extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //사용자 이름 설정
         TextView username= findViewById(R.id.user_name);
-        if(!Load.accounts[Account.current_index].name.equals("비회원")) {
-            username.setText("사용자: " + Load.accounts[Account.current_index].name);
+        if(Load.account!=null) {
+            username.setText("사용자: " + Load.account.name);
             username.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -87,7 +90,7 @@ public class Main extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //비회원일 경우 로그인 페이지로 이동
-                if(Load.accounts[Account.current_index].name=="비회원") {
+                if(Load.account==null) {
                     Intent login_page = new Intent(Main.this,Login.class);
                     startActivity(login_page);
                     finish();
@@ -98,9 +101,9 @@ public class Main extends AppCompatActivity {
                     TextView username= account_info.findViewById(R.id.user_name);
                     TextView ID= account_info.findViewById(R.id.id);
                     TextView phone= account_info.findViewById(R.id.telephone);
-                    username.setText("이름: "+Load.accounts[Account.current_index].name);
-                    ID.setText("ID: "+Load.accounts[Account.current_index].ID);
-                    phone.setText("전화번호: 0"+Load.accounts[Account.current_index].phone_number);
+                    username.setText("이름: "+Load.account.name);
+                    ID.setText("ID: "+Load.account.ID);
+                    phone.setText("전화번호: "+Load.account.phone_number);
                     AlertDialog.Builder builder=new AlertDialog.Builder(Main.this);
                     builder.setCancelable(true)
                             .setView(account_info);
@@ -138,7 +141,7 @@ public class Main extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Account.current_index=100;
+        Load.account=null;
         finish();
         Intent main_page=new Intent(Main.this, Main.class);
         startActivity(main_page);
@@ -535,7 +538,7 @@ public class Main extends AppCompatActivity {
         else if(!Show_way.isConfirm) Toast.makeText(getApplicationContext(), "차량 종류를 선택하세요", Toast.LENGTH_SHORT).show();
         else if(purchase.getText().toString().equals("결제수단")) Toast.makeText(getApplicationContext(), "결제 수단을 선택하세요", Toast.LENGTH_SHORT).show();
         else { //결제 내역 작성
-                final String logfile = Load.accounts[Account.current_index].ID + ".dat"; //저장할 파일
+                final String logfile = Load.account.ID + ".dat"; //저장할 파일
                 final String send_name = name1.getText().toString();
                 final String send_address = sl.getText().toString();
                 final String send_phone = phone1.getText().toString();
@@ -578,43 +581,16 @@ public class Main extends AppCompatActivity {
                 }
             });
 
-            if(Account.current_index!=Load.non_member_index) { //회원일 경우만 저장
+
+
+            if(Load.account!=null) { //회원일 경우만 저장
                 confirm.setOnClickListener(new View.OnClickListener() { //확인 버튼 클릭
                     @Override
                     public void onClick(View v) {
-                        try { //로그에 저장
-                            BufferedWriter bw = new BufferedWriter(new FileWriter(getFilesDir() + logfile, true));
-                            bw.write(send_name);
-                            bw.newLine();
-                            bw.write(send_address);
-                            bw.newLine();
-                            bw.write(send_phone);
-                            bw.newLine();
-                            bw.write(receive_name);
-                            bw.newLine();
-                            bw.write(receive_address);
-                            bw.newLine();
-                            bw.write(receive_phone);
-                            bw.newLine();
-                            bw.write(Integer.toString(size));
-                            bw.newLine();
-                            bw.write(Integer.toString(weight));
-                            bw.newLine();
-                            bw.write(path2);
-                            bw.newLine();
-                            bw.write(purchase_method);
-                            bw.newLine();
-                            bw.write(message);
-                            bw.newLine();
-                            bw.write(time);
-                            bw.newLine();
-                            bw.write(Integer.toString(cost));
-                            bw.newLine();
-                            bw.flush();
-                            bw.close();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        //로그 업로드
+                        FirebaseDatabase database=FirebaseDatabase.getInstance();
+                        DatabaseReference ref=database.getReference();
+                        ref.child("Account").child(Load.account.ID).child("LOG").push().setValue(new LOG(send_name, send_address, send_phone, receive_name, receive_address, receive_phone, size, weight, path2, purchase_method, message, time,cost));
                         sl.setText("출발지 검색");
                         dl.setText("도착지 검색");
                         name1.setText("");

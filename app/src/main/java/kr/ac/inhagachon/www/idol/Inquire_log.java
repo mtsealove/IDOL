@@ -15,7 +15,7 @@ public class Inquire_log extends AppCompatActivity {
         //표시할 로그 결정
         Intent intent=getIntent();
         int index=intent.getIntExtra("log_index", 0);
-        LOG log=Load.accounts[Account.current_index].logs[index];
+        LOG log=View_log.logs[index];
 
         Button back= findViewById(R.id.back);
         back.setOnClickListener(new View.OnClickListener() {

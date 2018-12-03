@@ -4,11 +4,19 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -18,55 +26,70 @@ import java.io.IOException;
 
 public class Signup extends AppCompatActivity {
     Boolean did_overlap_check=false; //중복검사를 실시했는지 확인할 변수
+    FirebaseDatabase database=FirebaseDatabase.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+        EditText phone=(EditText)findViewById(R.id.input_phone_number);
+        phone.addTextChangedListener(new PhoneNumberFormattingTextWatcher());
 
     }
 
+    boolean overlap;
     public void check_ID_overlap(View v) { //ID 중복 검사 메서드
         final EditText input_ID=(EditText)findViewById(R.id.input_ID); //아이디 입력란
-        String ID=input_ID.getText().toString();
-        boolean overlap=false;
+        final String ID=input_ID.getText().toString();
+        overlap=false;
+        DatabaseReference ref=database.getReference();
+
 
         //ID 미입력시 토스트 출력
         if(ID.length()==0) Toast.makeText(Signup.this, "ID를 입력하세요", Toast.LENGTH_SHORT).show();
         //ID는 8자 이상 16자 미만으로 제한
         else if(ID.length()<8||ID.length()>16) Toast.makeText(Signup.this, "ID는 8자 이상 16자 이하여야 됩니다", Toast.LENGTH_SHORT).show();
         else {
-            for (int i = 0; i < Account.count; i++) { //메모리에 저장된 인스턴스를 검색하여 같은 ID가 있는지 확인
-                if (ID.equals(Load.accounts[i].ID)) {
-                    overlap = true; //동일한 ID가 이미 존재할 경우
-                    Toast.makeText(Signup.this, "동일한 ID가 존재합니다", Toast.LENGTH_SHORT).show();
-                }
-            }
+            ref.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    try {
+                        if(dataSnapshot.child("Account").child(ID).child("id").getValue()!=null) overlap=true;
+                    }catch (NullPointerException e) {
+                    }
+                    if (!overlap) { //해당 ID를 사용 가능할 시
+                        AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this);
+                        builder.setTitle("ID 사용가능")
+                                .setMessage("해당 ID를 사용할 수 있습니다")
+                                .setCancelable(false)
+                                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) { //입력 비활성화
+                                        input_ID.setEnabled(false);
+                                        input_ID.setFocusable(false);
+                                        input_ID.setClickable(false);
+                                        input_ID.setTextColor(Color.GRAY);
+                                        did_overlap_check = true; //중복검사 실시 확인
+                                        dialog.cancel();
+                                    }
+                                })
+                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.cancel();
+                                    }
+                                });
+                        AlertDialog dialog=builder.create();
+                        dialog.show();
+                    }
+                    else Toast.makeText(Signup.this, "동일한 ID가 존재합니다", Toast.LENGTH_SHORT).show();
 
-            if (!overlap) { //해당 ID를 사용 가능할 시
-                AlertDialog.Builder builder = new AlertDialog.Builder(Signup.this);
-                builder.setTitle("ID 사용가능")
-                        .setMessage("해당 ID를 사용할 수 있습니다")
-                        .setCancelable(false)
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) { //입력 비활성화
-                                input_ID.setEnabled(false);
-                                input_ID.setFocusable(false);
-                                input_ID.setClickable(false);
-                                input_ID.setTextColor(Color.GRAY);
-                                did_overlap_check = true; //중복검사 실시 확인
-                                dialog.cancel();
-                            }
-                        })
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.cancel();
-                            }
-                        });
-                AlertDialog dialog=builder.create();
-                dialog.show();
-            }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
         }
     }
 
@@ -104,35 +127,15 @@ public class Signup extends AppCompatActivity {
                     .setPositiveButton("확인",new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            File Account_File=new File(getFilesDir()+Load.Account_File_name);
-                            try { //파일에 기록
-                                BufferedWriter bw=new BufferedWriter(new FileWriter(Account_File, true));
-                                bw.write(name);
-                                bw.newLine();
-                                bw.write(birth);
-                                bw.newLine();
-                                bw.write(phone_number);
-                                bw.newLine();
-                                bw.write(ID);
-                                bw.newLine();
-                                bw.write(password);
-                                bw.newLine();
-                                bw.flush();
-                                bw.close();
-                                Toast.makeText(getApplicationContext(), "계정이 생성되었습니다", Toast.LENGTH_SHORT).show();
-                            } catch (FileNotFoundException e) {
-                                try {
-                                    Account_File.createNewFile();
-                                } catch (IOException e1) {
-                                    e1.printStackTrace();
-                                }
-                                e.printStackTrace();
-                            } catch (IOException e) {
-                                Toast.makeText(getApplicationContext(), "파일을 읽을 수 없습니다", Toast.LENGTH_SHORT).show();
-                                e.printStackTrace();
-                            }
-                            //인스턴스 생성
-                            Load.accounts[Account.count++]=new Account(name, birth,Integer.parseInt(phone_number), ID, password);
+                            DatabaseReference ref=database.getReference();
+                            Account ac=new Account(name, birth, phone_number, ID, password);
+                            ref.child("Account").child(ID).child("id").setValue(ac.ID);
+                            ref.child("Account").child(ID).child("birth").setValue(ac.birth);
+                            ref.child("Account").child(ID).child("name").setValue(ac.name);
+                            ref.child("Account").child(ID).child("password").setValue(ac.password);
+                            ref.child("Account").child(ID).child("phone_number").setValue(ac.phone_number);
+
+
                             dialog.cancel();
                             Intent login=new Intent(Signup.this, Login.class);
                             startActivity(login);

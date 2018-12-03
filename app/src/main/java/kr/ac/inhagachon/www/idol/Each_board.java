@@ -38,7 +38,7 @@ public class Each_board extends AppCompatActivity {
                 TextView sub_cmt= sub.findViewById(R.id.comment);
                 TextView user= sub.findViewById(R.id.user);
                 sub_cmt.setText(cmt);
-                user.setText(Load.accounts[Account.current_index].name);
+                user.setText(Load.account.name);
                 cmt_board.addView(sub);
                 //텍스트 없애고 키보드 내리기
                 comment.setText("");
