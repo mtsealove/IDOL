@@ -47,4 +47,15 @@ RAM: 1Gb 이상<br>
 
 <h1>5. 데이터베이스</h1>
  IDoL은 SQL을 이용한 MySQL이나 OracleDB를 이용하지 않고 구글의 Firebase의 Realtime Database를 이용합니다.<br>
- <image width=600 height=300 src="https://github.com/mtsealove/IDOL/blob/master/doc/firebase.jpeg">
+ <image width=500 height=250 src="https://github.com/mtsealove/IDOL/blob/master/doc/firebase.jpeg">
+ <h3>child</h3>
+ IDoL 프로젝트의 Child는 5가지로 분류합니다.<br>
+ Account, Links, FAQ, Notice가 그것입니다.<br>
+ <h5>Account</h5>
+ <pre>
+ Account는 계정을 관리하는 child입니다.
+ ID, 비밀번호, 이름, 전화번호 그리고 사용 기록을 관리합니다.
+ 사용 기록은 Account의 하위 클래스<계정이름>의 하위 클래스LOG에 저장됩니다.
+ LOG에는 사용시 입력한 모든 정보가 저장됩니다.
+ </pre>
+ </pre>
