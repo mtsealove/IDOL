@@ -3,10 +3,10 @@
 <H1>개요</H1>
 주요 기능<br>
 <pre>
-<h2>1. Firebase Realtime Database를 이용한 회원가입</h2>
-<h2>2. 구글 맵 API와 Geocoder를 이용한 배송 출발/목적지 설정</h2>
-<h2>3. 최단경로/최소비용/추천경로 알고리즘을 통한 배송 경로 설정</h2>
-4. 
+<h3>1. Firebase Realtime Database를 이용한 회원가입</h3>
+<h3>2. 구글 맵 API와 Geocoder를 이용한 배송 출발/목적지 설정</h3>
+<h3>3. 최단경로/최소비용/추천경로 알고리즘을 통한 배송 경로 설정</h3>
+<h3>4. Firebase Realtime을 이용한 사용기록 저장</h3>
 </pre>
 
 <hr>
