@@ -47,4 +47,4 @@ RAM: 1Gb 이상<br>
 
 <h1>5. 데이터베이스</h1>
  IDoL은 SQL을 이용한 MySQL이나 OracleDB를 이용하지 않고 구글의 Firebase의 Realtime Database를 이용합니다.<br>
- ![firebase] (/doc/firebase.jpg)
+ ![firebase] (IDOL/doc/firebase.jpg)
