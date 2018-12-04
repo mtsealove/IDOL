@@ -25,6 +25,7 @@ KTX특송, 지하철 택배 등에 고속버스 특송업계가 합쳐진 ‘여
 Middle ware: JDK8<br>
 개발 IDE: Android Studio 3.1<br>
 개발 언어: JAVA
+SDK: SDK version 23
 <h5>하드웨어</h5>
 CPU: Intel i7-8550u<br>
 RAM: 8Gb<br>
@@ -34,7 +35,12 @@ SSD: 256Gb
 IDoL은 Firebase의 실시간 데이터베이스를 이용하기 때문에 서버에 대한 개발은 실시하지 않는다
 
 <h1>4. 운영환경</h1>
-기기명: galaxy s8<br>
-
-<br>사용 API: 구글맵
-<br>테스트 기기: 삼성 갤럭시 S8, LG G5
+<h3>권장사양</h3>
+<h5>하드웨어</h5>
+CPU: Qualcomm Snapdragon 625 이상 || Samsung Exynos Exynos 5422 Octa 이상<br>
+RAM: 1Gb 이상<br>
+저장공간: 여유공간 1Gb 이상<br>
+<h5>소프트웨어</h5>
+운영체제: Android Android 6.0 (SDK 23) 이상
+<hr>
+* 권장사양의 하드웨어적인 요건을 만족하지 못해도 소프트웨어가 실행될 수는 있으나 소프트웨어 요건이 충분하지 않으면 실행이 되지 않을 수도 있습니다.
