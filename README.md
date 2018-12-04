@@ -20,11 +20,20 @@ KTX특송, 지하철 택배 등에 고속버스 특송업계가 합쳐진 ‘여
 </pre>
 <H1>3. 개발환경</H3>
 <h3>Client</h3>
+<h5>소프트웨어</h5>
 운영체제: Ubuntu 18.04 lts<br>
 Middle ware: JDK8<br>
 개발 IDE: Android Studio 3.1<br>
-개발 언어: JAVA<br>
-//IDoL은 Firebase를 이용하기 때문에 서버에 대한 개발은 실시하지 않는다.
+개발 언어: JAVA
+<h5>하드웨어</h5>
+CPU: Intel i7-8550u<br>
+RAM: 8Gb<br>
+SSD: 256Gb
+<h3>Server</h3>
+IDoL은 Firebase의 실시간 데이터베이스를 이용하기 때문에 서버에 대한 개발은 실시하지 않는다
+
+<h1>4. 운영환경</h1>
+기기명: galaxy s8<br>
 
 <br>사용 API: 구글맵
 <br>테스트 기기: 삼성 갤럭시 S8, LG G5
