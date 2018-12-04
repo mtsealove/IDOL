@@ -46,6 +46,8 @@ RAM: 1Gb 이상<br>
 <h1>5. 데이터베이스</h1>
  IDoL은 SQL을 이용한 MySQL이나 OracleDB를 이용하지 않고 구글의 Firebase의 Realtime Database를 이용합니다.<br>
  <image width=500 height=250 src="https://github.com/mtsealove/IDOL/blob/master/doc/firebase.jpeg">
+ 구글의 Firebase를 이용함으로서 개발자는 서버를 구축할 필요가 없습니다.<br>
+ 그리고 실시간으로 데이터의 CRUD를 진행하고 웹과 애플리케이션에서는 실시간으로 업데이트된 데이터에 접근할 수 있습니다.
  <h3>child</h3>
  IDoL 프로젝트의 Child는 5가지로 분류합니다.<br>
  Account, Links, FAQ, Notice가 그것입니다.<br>
