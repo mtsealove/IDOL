@@ -44,3 +44,7 @@ RAM: 1Gb 이상<br>
 운영체제: Android Android 6.0 (SDK 23) 이상
 <hr>
 * 권장사양의 하드웨어적인 요건을 만족하지 못해도 소프트웨어가 실행될 수는 있으나 소프트웨어 요건이 충분하지 않으면 실행이 되지 않을 수도 있습니다.
+
+<h1>5. 데이터베이스<h1>
+  IDoL은 SQL을 이용한 MySQL이나 OracleDB를 이용하지 않고 구글의 Firebase의 Realtime Database를 이용합니다.<br>
+  ![firebase] (/doc/firebase.jpg)
