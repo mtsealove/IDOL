@@ -20,7 +20,7 @@ KTX특송, 지하철 택배 등에 고속버스 특송업계가 합쳐진 ‘여
 <H1>3. 개발환경</H3>
 <h3>Client</h3>
 <h5>소프트웨어</h5>
-<image src="https://github.com/mtsealove/IDOL/blob/master/doc/ubuntu.svg">
+<image width="200" height="200" src="https://github.com/mtsealove/IDOL/blob/master/doc/ubuntu.svg">
 운영체제: Ubuntu 18.04 lts<br>
 Middle ware: JDK8<br>
 개발 IDE: Android Studio 3.1<br>
