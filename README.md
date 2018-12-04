@@ -1,6 +1,7 @@
 # IDOL- I Design on Link
 
 <H1>1. 개요</H1>
+<image src="https://github.com/mtsealove/IDOL/blob/master/doc/icon.png">
 IDoL은 I Design on Link의 약자로 퀵서비스로, <br>
 KTX특송, 지하철 택배 등에 고속버스 특송업계가 합쳐진 ‘여객운송수단 복합운송’을 구축하는 플랫폼입니다.<br>
 각 업체들의 데이터들을 통합하여 하나의 모바일 애플리케이션에서 한번에 신청할 수 있는 플랫폼을 구축하는 것이 목표입니다.
