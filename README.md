@@ -18,7 +18,13 @@ KTX특송, 지하철 택배 등에 고속버스 특송업계가 합쳐진 ‘여
 - 사용자는 자신의 이용 기록을 확인할 수 있다.
 - 사용자는 공지사항과 FAQ를 확인하고 댓글을 작성할 수 있다.
 </pre>
-<br>개발환경: Ubuntu 18.04 lts, JDK8, 안드로이드 스튜디오
-<br>사용 언어: JAVA
+<H1>3. 개발환경</H3>
+<h3>Client</h3>
+운영체제: Ubuntu 18.04 lts<br>
+Middle ware: JDK8<br>
+개발 IDE: Android Studio 3.1<br>
+개발 언어: JAVA<br>
+//IDoL은 Firebase를 이용하기 때문에 서버에 대한 개발은 실시하지 않는다.
+
 <br>사용 API: 구글맵
 <br>테스트 기기: 삼성 갤럭시 S8, LG G5
