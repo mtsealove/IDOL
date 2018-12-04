@@ -1,12 +1,12 @@
 # IDOL- I Design on Link
 
-<H3>개요</H3>
--------------
-<br>주요 기능<br>
+<H1>개요</H1>
+주요 기능<br>
 <pre>
-1. Firebase Realtime Database를 이용한 회원가입<br>
-2. 구글 맵 API와 Geocoder를 이용한 배송 출발/목적지 설정<br>
-3. 최단경로/최소비용/추천경로 알고리즘을 통한 배송 경로 설정<br>
+<h2>1. Firebase Realtime Database를 이용한 회원가입</h2>
+<h2>2. 구글 맵 API와 Geocoder를 이용한 배송 출발/목적지 설정</h2>
+<h2>3. 최단경로/최소비용/추천경로 알고리즘을 통한 배송 경로 설정</h2>
+4. 
 </pre>
 
 <hr>
