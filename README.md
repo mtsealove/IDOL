@@ -29,6 +29,7 @@ Middle ware: JDK8<br>
 CPU: Intel i7-8550u<br>
 RAM: 8Gb<br>
 SSD: 256Gb
+<hr>
 <h3>Server</h3>
 IDoL은 Firebase의 실시간 데이터베이스를 이용하기 때문에 서버에 대한 개발은 실시하지 않는다
 
