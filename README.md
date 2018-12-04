@@ -1,11 +1,9 @@
 # IDOL- I Design on Link
 
 <H1>1. 개요</H1>
-<pre>
-IDoL은 I Design on Link의 약자로 퀵서비스, 
+<pre>IDoL은 I Design on Link의 약자로 퀵서비스, 
 KTX특송, 지하철 택배 등에 고속버스 특송업계가 합쳐진 ‘여객운송수단 복합운송’을 구축하는 플랫폼입니다.
-각 업체들의 데이터들을 통합하여 하나의 모바일 애플리케이션에서 한번에 신청할 수 있는 플랫폼을 구축하는 것이 목표입니다.
-</pre>
+각 업체들의 데이터들을 통합하여 하나의 모바일 애플리케이션에서 한번에 신청할 수 있는 플랫폼을 구축하는 것이 목표입니다.</pre>
 
 <H1>2. 요구사항</h1>
 <pre>
@@ -52,22 +50,16 @@ RAM: 1Gb 이상<br>
  IDoL 프로젝트의 Child는 5가지로 분류합니다.<br>
  Account, Links, FAQ, Notice가 그것입니다.<br>
  <h5>Account</h5>
- <pre>
- Account는 계정을 관리하는 child입니다.
+ <pre>Account는 계정을 관리하는 child입니다.
  ID, 비밀번호, 이름, 전화번호 그리고 사용 기록을 관리합니다.
  사용 기록은 Account의 하위 클래스<계정이름>의 하위 클래스LOG에 저장됩니다.
  LOG에는 사용시 입력한 모든 정보가 저장됩니다.
  로그인 시 Client에서 계정의 ID와 비밀번호에 대한 정보를 Firebase Server에서 요청하고
- Firebase Server는 해당 계정 정보를 반환합니다.
- </pre>
+ Firebase Server는 해당 계정 정보를 반환합니다.</pre>
  <h5>Links</h5>
- <pre>
- Links는 경로에 대한 데이터가 저장되어 있습니다.
+ <pre>Links는 경로에 대한 데이터가 저장되어 있습니다.
  Links의 하위 클래스에는 업체명, 경로, 비용, 소요 시간 등의 경유지와 업체의 가격에 대한 정보 등이 저장됩니다.
- Client에서는 Links의 모든 요청에 대한 정보를 요청하고 Firebase Server는 모든 하위 클래스들을 Client에 전송합니다.
- </pre>
+ Client에서는 Links의 모든 요청에 대한 정보를 요청하고 Firebase Server는 모든 하위 클래스들을 Client에 전송합니다.</pre>
  <h5>FAQ, Notice</h5>
- <pre>
- FAQ와 공 게시글에 관한 하위 크래스입니다.
- 제목과 내용에 대한 정보가 저장되어 있으며 각 하위 클래스는 댓글 정보를 포함하고 있습니다.
- </pre>
+ <pre>FAQ와 공 게시글에 관한 하위 크래스입니다.
+ 제목과 내용에 대한 정보가 저장되어 있으며 각 하위 클래스는 댓글 정보를 포함하고 있습니다.</pre>
