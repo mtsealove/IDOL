@@ -67,6 +67,13 @@ public class Main extends AppCompatActivity {
         else { //비회원일 경우 로그인 화면 출력
             username.setText("로그인 하세요");
         }
+        username.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Toast.makeText(Main.this, "사용 기록을 확인할 수 있습니다", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        });
 
         //drawerLayout 슬라이드 설정
         Button drawerBTN= findViewById(R.id.slide_menu);
@@ -182,7 +189,6 @@ public class Main extends AppCompatActivity {
         }
     }
 
-
     public void set_transportation(View v) { //운송 방법 선택 메서드
         String sloc = ((TextView) findViewById(R.id.start_location)).getText().toString(); //출발주소
         String dloc = ((TextView) findViewById(R.id.destination_location)).getText().toString(); //도착주소
@@ -242,10 +248,21 @@ public class Main extends AppCompatActivity {
             Button suggets_way= layout.findViewById(R.id.suggest_way);
             Button low_benefit= layout.findViewById(R.id.low_benefit_btn);
             Button short_way= layout.findViewById(R.id.short_way);
+            final Button designBtn=layout.findViewById(R.id.design);
+            ImageView icon=layout.findViewById(R.id.icon);
+            icon.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    designBtn.setVisibility(View.VISIBLE);
+                    Toast.makeText(Main.this, "직접 선택이 활성화되었습니다", Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
             final String finalTotal1 = total1;
             final String finalTotal2 = total2;
             final int finalLogic_length = logic_length;
             final Intent show_way=new Intent(Main.this, Show_way.class);
+            final Intent design=new Intent(Main.this, Desing_way.class);
             TextView s= findViewById(R.id.start_location);
             TextView d= findViewById(R.id.destination_location);
             show_way.putExtra("saddress", s.getText().toString());
@@ -253,6 +270,12 @@ public class Main extends AppCompatActivity {
             show_way.putExtra("location1", finalTotal1);
             show_way.putExtra("location2", finalTotal2);
             show_way.putExtra("count", finalLogic_length);
+            design.putExtra("saddress", s.getText().toString());
+            design.putExtra("daddress", d.getText().toString());
+            design.putExtra("location1", finalTotal1);
+            design.putExtra("location2", finalTotal2);
+            design.putExtra("count", finalLogic_length);
+
             suggets_way.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -277,6 +300,13 @@ public class Main extends AppCompatActivity {
                     show_way.putExtra("title", "최단시간");
                     pb.setVisibility(View.VISIBLE);
                     startActivity(show_way);
+                    dialog.cancel();
+                }
+            });
+            designBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(design);
                     dialog.cancel();
                 }
             });

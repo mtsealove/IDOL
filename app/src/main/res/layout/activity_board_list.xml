@@ -47,8 +47,7 @@
             <ListView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="600dp"
-                android:entries="@array/notice"/>
+                android:layout_height="600dp" />
         </LinearLayout>
 
     </ScrollView>

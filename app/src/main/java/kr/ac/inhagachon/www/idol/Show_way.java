@@ -287,7 +287,7 @@ public class Show_way extends AppCompatActivity implements OnMapReadyCallback {
             }
         }
         this.reverse=reverse;
-        int ll=0;
+
         Logic[] best=new Logic[3];
         Logic[] best2=new Logic[3];
 

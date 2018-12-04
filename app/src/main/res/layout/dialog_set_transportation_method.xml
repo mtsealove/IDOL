@@ -13,6 +13,7 @@
         >
 
         <ImageView
+            android:id="@+id/icon"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:src="@drawable/trasportation" />
@@ -50,17 +51,31 @@
         android:paddingVertical="10dp"
         android:layout_marginHorizontal="20dp"
         android:layout_marginTop="20dp"/>
+
     <Button
         android:id="@+id/short_way"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#D8D8D8"
+        android:paddingVertical="10dp"
         android:text="최단거리"
+        android:textColor="#FFFFFF"
+        android:textSize="25sp"
+        android:layout_marginBottom="20dp"/>
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/design"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="직접 선택"
         android:background="#D8D8D8"
         android:textColor="#FFFFFF"
         android:textSize="25sp"
         android:paddingVertical="10dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"/>
 
 

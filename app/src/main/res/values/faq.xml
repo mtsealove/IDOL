@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string-array name="faq">
-        <item>IDoL은 어떤 애플리케이션 인가요</item>
-        <item>추천경로는 어떻게 계산하나요</item>
-        <item>현금결제를 지원하지 않는 이유가 무엇인가요</item>
-    </string-array>
-</resources>

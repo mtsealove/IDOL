@@ -31,6 +31,8 @@ public class View_log extends AppCompatActivity {
     FirebaseDatabase database=FirebaseDatabase.getInstance();
     DatabaseReference ref=database.getReference();
     static LOG[] logs;
+
+    String[] list;
     @Override
     protected void onCreate(final Bundle si) {
         super.onCreate(si);
@@ -80,6 +82,23 @@ public class View_log extends AppCompatActivity {
                         logs[i++]=new LOG(send_name, send_address, send_phone, receive_name, receive_address, receive_phone, size, weight, path, purchase_method, message, time, cost);
                     }
                     count=i;
+                    list=new String[count];
+                    //리스트에 이름을 추가
+                    for(int j=0; j<count; j++) {
+                        list[j]=(logs[j].time);
+                    }
+                    ListView listView= findViewById(R.id.list);
+                    ArrayAdapter<String> nameadapter=new ArrayAdapter<String>(getApplicationContext(), R.layout.layout, list);
+                    listView.setAdapter(nameadapter);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            Intent inquire=new Intent(View_log.this, Inquire_log.class);
+                            inquire.putExtra("log_index", position);
+                            startActivity(inquire);
+                        }
+                    });
                 }
 
                 @Override
@@ -89,22 +108,6 @@ public class View_log extends AppCompatActivity {
             });
         }
 
-        String[] list=new String[count];
-        //리스트에 이름을 추가
-        for(int i=0; i<count; i++) {
-            list[i]=(logs[i].time);
-        }
-        ListView listView= findViewById(R.id.list);
-        ArrayAdapter<String> nameadapter=new ArrayAdapter<String>(getApplicationContext(), R.layout.layout, list);
-        listView.setAdapter(nameadapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent inquire=new Intent(View_log.this, Inquire_log.class);
-                inquire.putExtra("log_index", position);
-                startActivity(inquire);
-            }
-        });
     }
 }

@@ -48,6 +48,24 @@ class LOG {
         this.time=time;
         this.cost=cost;
     }
+}
+class board {
+    String title;
+    String content;
 
+    board(String title, String content) {
+        this.title=title;
+        this.content=content;
+    }
+}
+
+class reply {
+    String name;
+    String content;
+
+    reply(String name, String content) {
+        this.name=name;
+        this.content=content;
+    }
 }
 
