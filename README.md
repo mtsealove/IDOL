@@ -43,6 +43,7 @@ RAM: 1Gb 이상<br>
 저장공간: 여유공간 1Gb 이상<br>
 <h5>소프트웨어</h5>
 운영체제: Android Android 6.0 (SDK 23) 이상
+<image witdh="400" height="300" src="https://github.com/mtsealove/IDOL/blob/master/doc/Android.png">
 <hr>
 * 권장사양의 하드웨어적인 요건을 만족하지 못해도 소프트웨어가 실행될 수는 있으나 소프트웨어 요건이 충분하지 않으면 실행이 되지 않을 수도 있습니다.
 
