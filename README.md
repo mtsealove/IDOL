@@ -22,8 +22,8 @@ KTX특송, 지하철 택배 등에 고속버스 특송업계가 합쳐진 ‘여
 운영체제: Ubuntu 18.04 lts<br>
 Middle ware: JDK8<br>
 개발 IDE: Android Studio 3.1<br>
-개발 언어: JAVA
-SDK: SDK version 23
+개발 언어: JAVA<br>
+SDK: SDK version 23<br>
 사용 API: Google Map
 <h5>하드웨어</h5>
 CPU: Intel i7-8550u<br>
