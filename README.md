@@ -121,5 +121,5 @@ ex) 사용자가 고속터미널을 선택하면 KTX의 선택지는 사용자�
          <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/10.jpg">
           <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/11.jpg">
            <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/12.jpg">
-            <h1>8.설치파일 위치</h1>
+            <h1>8. 설치파일 위치</h1>
             https://github.com/mtsealove/IDOL/blob/master/doc/IDOL.apk
