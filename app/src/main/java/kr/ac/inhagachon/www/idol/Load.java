@@ -63,7 +63,7 @@ public class Load extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_load);
-        pb=(ProgressBar)findViewById(R.id.progressBar);
+        pb= findViewById(R.id.progressBar);
         pb.setMax(100);
 
         //인터넷 연결 여부 확인
@@ -141,7 +141,7 @@ public class Load extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        pb.setProgress(90);
+        pb.setProgress(40);
 
         //로그인 파일 읽기에 성공시 firebase에서 데이터를 찾음
         if(id!=null&&password!=null) {
@@ -155,6 +155,7 @@ public class Load extends AppCompatActivity {
                         String phone_number=dataSnapshot.child("Account").child(id).child("phone_number").getValue(String.class);
                         //객체 생성
                         account=new Account(name, birth, phone_number, id, password);
+                        pb.setProgress(60);
                     }
                 }
 
@@ -164,7 +165,7 @@ public class Load extends AppCompatActivity {
                 }
             });
         }
-        pb.setProgress(90);
+        else pb.setProgress(60);
 
         //firebase에 저장된 만큼의 경로 인스턴스 생성
         DatabaseReference ref1=database.getReference();
@@ -173,7 +174,6 @@ public class Load extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 int Links_size=(int)(dataSnapshot.child("Links").getChildrenCount());
                 logics=new Logic[Links_size];
-                pb.setMax(Links_size);
             }
 
             @Override

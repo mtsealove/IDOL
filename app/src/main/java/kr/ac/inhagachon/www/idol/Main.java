@@ -249,20 +249,11 @@ public class Main extends AppCompatActivity {
             Button low_benefit= layout.findViewById(R.id.low_benefit_btn);
             Button short_way= layout.findViewById(R.id.short_way);
             final Button designBtn=layout.findViewById(R.id.design);
-            ImageView icon=layout.findViewById(R.id.icon);
-            icon.setOnLongClickListener(new View.OnLongClickListener() {
-                @Override
-                public boolean onLongClick(View v) {
-                    designBtn.setVisibility(View.VISIBLE);
-                    Toast.makeText(Main.this, "직접 선택이 활성화되었습니다", Toast.LENGTH_SHORT).show();
-                    return false;
-                }
-            });
             final String finalTotal1 = total1;
             final String finalTotal2 = total2;
             final int finalLogic_length = logic_length;
             final Intent show_way=new Intent(Main.this, Show_way.class);
-            final Intent design=new Intent(Main.this, Desing_way.class);
+            final Intent design=new Intent(Main.this, Design_way.class);
             TextView s= findViewById(R.id.start_location);
             TextView d= findViewById(R.id.destination_location);
             show_way.putExtra("saddress", s.getText().toString());
@@ -270,8 +261,6 @@ public class Main extends AppCompatActivity {
             show_way.putExtra("location1", finalTotal1);
             show_way.putExtra("location2", finalTotal2);
             show_way.putExtra("count", finalLogic_length);
-            design.putExtra("saddress", s.getText().toString());
-            design.putExtra("daddress", d.getText().toString());
             design.putExtra("location1", finalTotal1);
             design.putExtra("location2", finalTotal2);
             design.putExtra("count", finalLogic_length);
@@ -568,7 +557,6 @@ public class Main extends AppCompatActivity {
         else if(!Show_way.isConfirm) Toast.makeText(getApplicationContext(), "차량 종류를 선택하세요", Toast.LENGTH_SHORT).show();
         else if(purchase.getText().toString().equals("결제수단")) Toast.makeText(getApplicationContext(), "결제 수단을 선택하세요", Toast.LENGTH_SHORT).show();
         else { //결제 내역 작성
-                final String logfile = Load.account.ID + ".dat"; //저장할 파일
                 final String send_name = name1.getText().toString();
                 final String send_address = sl.getText().toString();
                 final String send_phone = phone1.getText().toString();

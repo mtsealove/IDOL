@@ -65,14 +65,18 @@ public class Login extends AppCompatActivity {
             ref1.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                    try { //데이터베이스에서 해당 계저이 존재하는지 검색
+                    try { //데이터베이스에서 해당 계정이 존재하는지 검색
                         if (dataSnapshot.child("Account").child(ID).child("password").getValue(String.class).equals(password)) {
                             String name = dataSnapshot.child("Account").child(ID).child("name").getValue(String.class);
                             String birth = dataSnapshot.child("Account").child(ID).child("birth").getValue(String.class);
                             String phone_number = dataSnapshot.child("Account").child(ID).child("phone_number").getValue(String.class);
                             Load.account = new Account(name, birth, phone_number, ID, password);
-                            if (keep_login.isChecked()) { //로그인 유지 선택 시
+                            if (Load.account.ID.equals("manager")) {
+                                Intent intent = new Intent(Login.this, Manager.class);
+                                startActivity(intent);
+                                finish();
+                            } else {
+                                if (keep_login.isChecked()) { //로그인 유지 선택 시
                                 try {
                                     //로그인 파일에 ID 저장
                                     BufferedWriter bw = new BufferedWriter(new FileWriter(getFilesDir() + Load.LoginFile));
@@ -97,7 +101,7 @@ public class Login extends AppCompatActivity {
                             startActivity(main_page);
                             finish();
                             //메인 페이지로 이동
-
+                        }
                         }
                     } catch (NullPointerException e) {
                         Toast.makeText(getApplicationContext(), "ID 또는 비밀번호를 확인하세요", Toast.LENGTH_SHORT).show();

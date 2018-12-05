@@ -159,7 +159,9 @@ public class Show_way extends AppCompatActivity implements OnMapReadyCallback {
                 TextView path=list.findViewById(R.id.path);
                 name.setText(flex[i].transportation);
                 price.setText(flex[i].cost+"원");
-                time.setText(flex[i].min/60+"시간 "+flex[i].min%60+"분");
+                if(flex[i].min==0) time.setText(flex[i].min/60+"시간 ");
+                else if(flex[i].min%60==0) time.setText(flex[i].min%60+"분");
+                else time.setText(flex[i].min/60+"시간 "+flex[i].min%60+"분");
                 path.setText(flex[i].address);
                 tcost+=flex[i].cost;
                 ttime+=flex[i].min;

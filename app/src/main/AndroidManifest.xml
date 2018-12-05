@@ -39,7 +39,8 @@
         <activity android:name=".View_log" />
         <activity android:name=".Inquire_log"/>
         <activity android:name=".Each_board"/>
-        <activity android:name=".Desing_way"/>
+        <activity android:name=".Design_way"/>
+        <activity android:name=".Manager"/>
     </application>
 
 </manifest>
