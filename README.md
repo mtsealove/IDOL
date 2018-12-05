@@ -31,6 +31,11 @@ SDK: SDK version 23<br>
 CPU: Intel i7-8550u<br>
 RAM: 8Gb<br>
 SSD: 256Gb
+<h5>테스트 기기</h5>
+ 기종: 삼성 Galaxy S8<br>
+ CPU: Exynos 8895 Octa<br>
+ RAM: 4Gb<br>
+ 운영체제: Anroid 8.0 (SDK 26)
 <hr>
 <h3>Server</h3>
 IDoL은 Firebase의 실시간 데이터베이스를 이용하기 때문에 서버에 대한 개발은 실시하지 않습니다.
@@ -39,7 +44,7 @@ IDoL은 Firebase의 실시간 데이터베이스를 이용하기 때문에 서�
 <h3>권장사양</h3>
 <h5>하드웨어</h5>
 CPU: Qualcomm Snapdragon 625 이상 || Samsung Exynos Exynos 5422 Octa 이상<br>
-RAM: 1Gb 이상<br>
+RAM: 2Gb 이상<br>
 저장공간: 여유공간 1Gb 이상<br>
 <h5>소프트웨어</h5>
 운영체제: Android Android 6.0 (SDK 23) 이상
@@ -97,7 +102,7 @@ RAM: 1Gb 이상<br>
 8. 더 작은 가성비 변수 값을 가진 인스턴스 배열을 출력합니다.
 
 <h3>직접 설정</h3>
-3. Logic 인스턴싀 배열의 모든 내용을 사용자에게 출력합니다.<br>
+3. Logic 인스턴스 배열의 모든 내용을 사용자에게 출력합니다.<br>
 4. 사용자는 앞의 경유지부터 차례대로 선택하고 다음 사용자의 선택에 따라 해당되지 않는 경유지는 비활성화됩니다.<br>
-ex) 사용자가 고속터미널을 선택하면 KTX의 선택지는 비활성화된다.<br>
-5. 사용자가 선택한 경로를 출력합니다.
+ex) 사용자가 고속터미널을 선택하면 KTX의 선택지는 사용자에게 보여지지 않는다.<br>
+5. 사용자가 선택한 경로의 시간과 비용을 출력합니다.
