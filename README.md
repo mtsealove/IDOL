@@ -5,7 +5,7 @@
 IDoL은 I Design on Link의 약자로로, <br>
 퀵 , KTX특송, 지하철 택배 등에 고속버스 특송업계가 합쳐진 ‘여객운송수단 복합운송’을 구축하는 플랫폼입니다.<br>
 각 업체들의 데이터들을 통합하여 하나의 모바일 애플리케이션에서 한번에 신청할 수 있는 플랫폼을 구축하는 것이 목표입니다.<br>
-18.09.26~18.11.22
+18.09.26~18.11.22의 기간동안 개발되었스며 이후 유지보수를 실시했
 
 <H1>2. 요구사항</h1>
 <pre>
@@ -107,3 +107,17 @@ RAM: 2Gb 이상<br>
 4. 사용자는 앞의 경유지부터 차례대로 선택하고 다음 사용자의 선택에 따라 해당되지 않는 경유지는 비활성화됩니다.<br>
 ex) 사용자가 고속터미널을 선택하면 KTX의 선택지는 사용자에게 보여지지 않는다.<br>
 5. 사용자가 선택한 경로의 시간과 비용을 출력합니다.
+
+<h1>7. 주요 스크린샷</h1>
+<image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/1.jpg">
+ <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/2.jpg">
+  <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/3.jpg">
+   <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/4.jpg">
+    <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/5.jpg">
+     <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/6.jpg">
+      <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/7.jpg">
+       <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/8.jpg">
+        <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/9.jpg">
+         <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/10.jpg">
+          <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/11.jpg">
+           <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/12.jpg">
