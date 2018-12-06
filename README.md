@@ -115,6 +115,10 @@ ex) 사용자가 고속터미널을 선택하면 KTX의 선택지는 사용자�
  <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/2.jpg">
   메인 UI - 슬라이드 메뉴
   <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/3.jpg">
+   로그인 UI
+   <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/14.jpg">
+    회원가입 UI
+   <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/15.jpg">
    위치 검색 UI
    <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/4.jpg">
     화물 종류 설정 UI
@@ -127,7 +131,7 @@ ex) 사용자가 고속터미널을 선택하면 KTX의 선택지는 사용자�
        <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/8.jpg">
         경로 직접 선택 UI
         <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/9.jpg">
-         결제수다 선택 UI
+         결제수단 선택 UI
          <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/10.jpg">
           결제 확인 UI
           <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/11.jpg">
