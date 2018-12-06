@@ -108,18 +108,32 @@ RAM: 2Gb 이상<br>
 ex) 사용자가 고속터미널을 선택하면 KTX의 선택지는 사용자에게 보여지지 않는다.<br>
 5. 사용자가 선택한 경로의 시간과 비용을 출력합니다.
 
-<h1>7. 주요 스크린샷</h1>
+<h1>7. 주요 UI</h1>
+로딩 UI
 <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/1.jpg">
+ 메인 UI
  <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/2.jpg">
+  메인 UI - 슬라이드 메뉴
   <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/3.jpg">
+   위치 검색 UI
    <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/4.jpg">
+    화물 종류 설정 UI
     <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/5.jpg">
+     차량 종류 선택 UI
      <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/6.jpg">
+      추천경로 출력 UI (최단시간과 최소 시간은 동일한 UI를 가집니다)
       <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/7.jpg">
+       추천경로 출력 UI (자세히)
        <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/8.jpg">
+        경로 직접 선택 UI
         <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/9.jpg">
+         결제수다 선택 UI
          <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/10.jpg">
+          결제 확인 UI
           <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/11.jpg">
+           주문 내역 UI (슬라이드 메뉴 / 사용자 이름 클릭)
            <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/12.jpg">
+            관리자 UI (로그인 화면/ ID: manager pw: password)
+            <image width="300" height="600" src="https://github.com/mtsealove/IDOL/blob/master/doc/13.jpg">
             <h1>8. 설치파일 위치</h1>
             https://github.com/mtsealove/IDOL/blob/master/doc/IDOL.apk
